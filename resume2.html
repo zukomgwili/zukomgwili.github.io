@@ -1,0 +1,32 @@
+---
+layout: default
+title: Resume
+---
+<h1>Work History</h1>
+<ul>
+    {% for experience in site.work_history %}
+    <li>
+        <table>
+            <tr>
+                <td>Company Name</td>
+                <td>{{experience.company_name}}</td>
+            </tr>
+            <tr>
+                <td>Job Title</td>
+                <td>{{experience.job_title}}</td>
+            </tr>
+            <tr>
+                <td>Start Date</td>
+                <td>{{experience.start_date}}</td>
+            </tr>
+            {% if experience.end_date %}
+            <tr>
+                <td>End Date</td>
+                <td>{{experience.end_date}}</td>
+            </tr>
+            {% endif %}
+        </table>
+        {{ experience.content }}
+    </li>
+    {% endfor %}
+</ul>

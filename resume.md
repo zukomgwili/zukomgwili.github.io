@@ -4,11 +4,10 @@ title: Resume/CV
 ---
 
 # WORK HISTORY
-**Company Name** : CollectAI GmbH 
 
-**Job Title** : Fullstack Engineer
-
-**Start Date** : December 2019
+|**Company Name**|CollectAI GmbH|
+|**Job Title**|Fullstack Engineer|
+|**Start Date**|December 2019|
 
 ## Description
 I am an individual contributor in a team responsible for developing and supporting a payment portal that enables
@@ -34,8 +33,14 @@ support the payment portal. The two that are worth highlighting are:
 - KneJS
 - PostgreSQL
 
-  Software Developer Chillisoft Solution Services
-  (Pty) Ltd
+
+|**Company Name**|Chillisoft Solution Services (Pty) Ltd|
+|**Job Title**|Software Developer|
+|**Start Date**|August 2012|
+|**End Date**|November 2019|
+
+
+(Pty) Ltd
   August 2012 – November 2019
   Projects:
   ● Project Portal (2019) – The purpose of the project is to create a project management
@@ -137,15 +142,6 @@ support the payment portal. The two that are worth highlighting are:
   ■ I wrote a point-of-sale application using Mono Develop and C# on Linux as
   part of the company’s strategy to phase out the use of COBOL in their
   software products.
-  Web Designer SADC Publishing CC November 2006 – August 2007
-  Projects:
-  ● Emart Promotion (2007) – To design leaflets for a DIY retailer
-  ○ Technologies Used
-  ■ Inkscape, Gimp, Photoshop
-  ○ Contribution
-  ■ I designed leaflets for the grand opening of EMART, a home improvement
-  supplies store. Because of my work we were able to secure additional
-  business from the customer.
   TOOLS & SKILLS
   ● Languages: C#, JavaScript (ES5 & ES6), Typescript, HTML/CSS, Java, Python
   ● Frameworks: ASP.NET Core, Node.js, ExpressJS, AngularJS, Angular, Jasmine, ReactJS, Flux,
