@@ -1,16 +1,19 @@
 ---
 company_name: Dev2 (Pty) Ltd
 job_title: BPM SOA Developer
-start_date: September 2007
-end_date: August 2010
+start_date: March 2012
+end_date: July 2012
 ---
 
 ## Description
- Dev2 (Pty) Ltd March 2012 – July 2012
-Projects:
-● Workflow (2012) – An application development tool that allows users to build
-applications with little to no coding.
-○ Technologies Used
-■ WPF, C#, JavaScript, JQuery
-○ Contribution
-■ I built several visual components using JavaScript/jQuery
+I joined the company at the height of the BPM/SOA craze. The company was a startup working on a business process modelling tool. 
+My official title was BPM SOA Developer but I did not do any business process modelling but was in the trenches with 
+the other engineers programming, building the tool.
+
+## Tech Stack
+- ### Programming Languages
+  - C#
+  - Javascript
+- ### Frameworks
+  - WPF
+  - jQuery
