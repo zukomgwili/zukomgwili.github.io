@@ -1,0 +1,76 @@
+---
+layout: default
+title: Resume
+---
+<section id="work-history">
+    <h1>Work History</h1>
+    <ul>
+        {% for experience in site.work_history %}
+        <li>
+            <table>
+                <tr>
+                    <td>Company Name</td>
+                    <td>{{experience.company_name}}</td>
+                </tr>
+                <tr>
+                    <td>Job Title</td>
+                    <td>{{experience.job_title}}</td>
+                </tr>
+                <tr>
+                    <td>Start Date</td>
+                    <td>{{experience.start_date}}</td>
+                </tr>
+                {% if experience.end_date %}
+                <tr>
+                    <td>End Date</td>
+                    <td>{{experience.end_date}}</td>
+                </tr>
+                {% endif %}
+            </table>
+            {{ experience.content }}
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+<section id="education">
+    <h1>Education</h1>
+    <ul>
+        {% for education in site.education %}
+        <li>
+            <table>
+                <tr>
+                    <td>School</td>
+                    <td>{{education.school}}</td>
+                </tr>
+                <tr>
+                    <td>Country/Region</td>
+                    <td>{{education.country_region}}</td>
+                </tr>
+                <tr>
+                    <td>State/Province</td>
+                    <td>{{education.state_province}}</td>
+                </tr>
+                <tr>
+                    <td>Start Year</td>
+                    <td>{{education.start_year}}</td>
+                </tr>
+                {% if education.end_year %}
+                <tr>
+                    <td>End Year</td>
+                    <td>{{education.end_year}}</td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <td>Field Of Study</td>
+                    <td>{{education.field_of_study}}</td>
+                </tr>
+                <tr>
+                    <td>Level Of Education</td>
+                    <td>{{education.level_of_education}}</td>
+                </tr>
+            </table>
+
+        </li>
+        {% endfor %}
+    </ul>
+</section>
