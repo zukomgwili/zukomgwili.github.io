@@ -18,7 +18,7 @@ computer network infrastructure for the aforementioned retailer.
   - CSS
   - Javascript
 
-- ### Graphic Design Tools
+- ### Design Tools
   - Inkscape
   - Gimp
   - Photoshop
