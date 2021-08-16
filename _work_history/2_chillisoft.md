@@ -7,8 +7,8 @@ end_date: November 2019
 
 ## Description
 
-(Pty) Ltd
-August 2012 – November 2019
+This has to be one of the best career choices I have ever made. Chillisoft has played a tremendous role in my growth as
+an engineer. I was able to be involved in many projects at the company as individual contributor. I worked on building
 Projects:
 ● Project Portal (2019) – The purpose of the project is to create a project management
 portal.

@@ -7,15 +7,18 @@ end_date: February 2012
 
 ### Description
 
-Programmer SPAR (Pty) Ltd September 2010 – February 2012
-Projects:
-● Promotions (2010-2012) – A system that allows seamless integration of various business
-processes in order to streamline the in-store promotions operation for a leading food
-retailer.
-○ Technologies Used
-■ IBM WebSphere Message Broker, IBM WebSphere MQ, Java
-○ Contribution
-■ I created several workflows that would extract data from IBM
-WebSphere MQ queues, transform and load it into the company’s
-promotions system.
+My tenure at the company gave me my initial exposure to ideas around SOA (Service Oriented Architecture). SOA was 
+the buzzword of the day during those years and numerous software vendors offered tools for building SOA software systems. 
+We used a suite of tools from IBM to build a system that would allow the seamless integration of various business processes
+in order to streamline the rollout of in-store promotions. I created several workflows that would extract data from 
+message queues, perform various transformations and cleanup of the data and then load it into the company's promotions
+system.
 
+## Tech Stack
+
+- ### Programing Languages
+  - Java
+  
+- ### Tools
+  - IBM WebSphere Message Broker
+  - IBM WebSphere MQ
