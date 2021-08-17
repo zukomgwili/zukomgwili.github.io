@@ -18,6 +18,12 @@
     #work-history-item {
       break-after: left;
       list-style: none;
+      td::first-of-type{
+        font-weight: bold;
+      }
+      td::last-of-type{
+        padding: 0 0 0 1rem;
+      }
     }
   }
 
