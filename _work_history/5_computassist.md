@@ -4,7 +4,7 @@ job_title: Java Developer
 start_date: September 2007
 end_date: August 2010
 ---
-## Description
+### Description
 My role at the company allowed me to really flex my programming muscles. Prior to this job, at the previous company, 
 I had done only HTML/CSS with a bit of JavaScript. The first major project I got plunged into was a point of sale 
 invoice display application. This application needed to display an invoice to the shopper at the checkout area 
@@ -15,18 +15,18 @@ Looking back now I can appreciate the learning experience these gave me.
 My time at Computassist afforded me the opportunity to grow my research and problem solving skills which 
 served me well as an engineer in later years.
 
-## Tech Stack
+### Tech Stack
 
-- ### Programming Languages
+- #### Programming Languages
   - Java
   - C#
   - COBOL
 
-- ### Frameworks
+- #### Frameworks
   - Java Media Framework
   - Mono
   - Windows Forms
 
-- ### Other tools
+- #### Other
   - VLC
 

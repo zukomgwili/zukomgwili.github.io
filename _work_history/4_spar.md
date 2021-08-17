@@ -5,7 +5,7 @@ start_date: September 2010
 end_date: February 2012
 ---
 
-### Description
+#### Description
 
 My tenure at the company gave me my initial exposure to ideas around SOA (Service Oriented Architecture). SOA was 
 the buzzword of the day during those years and numerous software vendors offered tools for building SOA software systems. 
@@ -14,11 +14,11 @@ in order to streamline the rollout of in-store promotions. I created several wor
 message queues, perform various transformations and cleanup of the data and then load it into the company's promotions
 system.
 
-## Tech Stack
+### Tech Stack
 
-- ### Programing Languages
+- #### Programing Languages
   - Java
   
-- ### Tools
+- #### Tools
   - IBM WebSphere Message Broker
   - IBM WebSphere MQ

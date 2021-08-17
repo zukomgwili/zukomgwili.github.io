@@ -5,13 +5,13 @@ start_date: August 2012
 end_date: November 2019
 ---
 
-## Description
+### Description
 
 This has to be one of the best career decisions I have ever made. Chillisoft played a tremendous role in my growth as
 an engineer. I was able to be involved in many projects at the company that gave me plenty career and personal 
 development opportunities. Below is a sample of some of the projects where I was either an individual contributor 
 or a sole developer.
-### Projects
+#### Projects
 - A project management platform with a specific focus on the construction industry.
 - A redesign and development of a web app for a sports betting company to use the latest web technologies.
 - The creation of a set of web APIs to help an accounting cloud software vendor enhance its offerings.
@@ -21,34 +21,34 @@ or a sole developer.
 - A companion mobile application to a birding enthusiasts book. The app was release on Android, iOS and, Windows platforms.
 - An off-line tool for all European business units within [CHEP](www.chep.com) that enables efficient administration of accounts and customer visits by mobile executives.
 
-## Tech Stack
-- ### Programming Languages
+### Tech Stack
+- #### Programming Languages
   - C#
   - JavaScript
   - TypeScript
-- ### Frameworks
-  - #### Desktop
+- #### Frameworks
+  - ##### Desktop
     - Windows Forms
     - WPF
-  - #### Mobile
+  - ##### Mobile
     - Apache Cordova
     - Ionic Framework
-  - #### Web
-    - ##### Frontend
+  - ##### Web
+    - ###### Frontend
       - Angular
       - React
       - Enzyme
       - Jest
-    - ##### Backend
+    - ###### Backend
       - NodeJS
       - NestJS
       - ASP.NET
-  - #### Testing
+  - ##### Testing
     - NSubstitute
-- ### Data
+- #### Data
   - Postgres
   - Elasticsearch
   - Neo4J
   - Microsoft SQL Server
-- ### Tools
+- #### Other
   - Docker

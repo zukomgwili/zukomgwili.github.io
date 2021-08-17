@@ -1,0 +1,36 @@
+@media print {
+  nav {
+    display: none;
+  }
+}
+
+#resume {
+  padding: 1rem;
+
+  .section-title {
+    font-size: 2rem;
+    background: aliceblue;
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+
+  #work-history {
+    #work-history-item {
+      break-after: left;
+      list-style: none;
+    }
+  }
+
+  #education {
+    ul {
+      list-style: none;
+    }
+
+    .school {
+      margin: 1rem;
+      td:first-of-type{
+        font-weight: bold;
+      }
+    }
+  }
+}

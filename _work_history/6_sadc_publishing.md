@@ -4,21 +4,21 @@ job_title: Web Designer
 start_date: November 2006
 end_date: August 2007
 ---
-## Description
+### Description
 
 My formal title was Web Designer but my responsibilities went far beyond building marketing websites. I built personal
 computers from component parts, worked on a project designing product promotion leaflets for the grand
 opening of a home improvement retailer ([EMART](https://www.emartsa.co.za/)). I was also involved in building the 
 computer network infrastructure for the aforementioned retailer.
 
-## Tech Stack
+### Tech Stack
 
-- ### Programming Languages
+- #### Programming Languages
   - HTML
   - CSS
   - Javascript
 
-- ### Design Tools
+- #### Design
   - Inkscape
   - Gimp
   - Photoshop
