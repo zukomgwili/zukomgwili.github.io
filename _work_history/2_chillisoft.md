@@ -19,7 +19,7 @@ or a sole developer.
 - A resource management platform that enables requests for a resource to be submitted and all relevant stakeholders to be notified so that appropriate action related to the request can be taken.
 - A data analysis solution that uses the relationships between elements in a given data set to provide insights into the data.
 - A companion mobile application to a birding enthusiasts book. The app was release on Android, iOS and, Windows platforms.
-- An off-line tool for all European business units within [CHEP](www.chep.com) that enables efficient administration of accounts and customer visits by mobile executives.
+- An off-line tool for all European business units within [CHEP](https://www.chep.com) that enables efficient administration of accounts and customer visits by mobile executives.
 
 ### Tech Stack
 - #### Programming Languages
