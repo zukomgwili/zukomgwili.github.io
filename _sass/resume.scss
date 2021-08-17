@@ -18,10 +18,10 @@
     #work-history-item {
       break-after: left;
       list-style: none;
-      td::first-of-type{
+      td:first-of-type{
         font-weight: bold;
       }
-      td::last-of-type{
+      td:last-of-type{
         padding: 0 0 0 1rem;
       }
     }
@@ -36,6 +36,9 @@
       margin: 1rem;
       td:first-of-type{
         font-weight: bold;
+      }
+      td:last-of-type{
+        padding: 0 0 0 1rem;
       }
     }
   }
