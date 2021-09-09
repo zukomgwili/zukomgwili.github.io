@@ -11,6 +11,8 @@ support the payment portal. The two services that are worth highlighting are:
 - A customer queries service which manages queries raised by customers and routes them to the relevant parties.
 - A service that allows the customer to make alternative payment arrangements if he/she is unable to make payment.
 
+I participate in discussions with design and the product teams about product goals and how best accomplish them.
+
 ### Tech Stack
 
 - #### Programming Languages
