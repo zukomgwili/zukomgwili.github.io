@@ -7,11 +7,10 @@ end_date: November 2019
 
 ### Description
 
-This has to be one of the best career decisions I have ever made. Chillisoft played a tremendous role in my growth as
-an engineer. I was able to be involved in many projects at the company that gave me plenty career and personal 
-development opportunities. Below is a sample of some of the projects where I was either an individual contributor 
-or a sole developer.
+This has to be one of the best career decisions I have ever made. Chillisoft played a tremendous role in my growth as an engineer. I was able to be involved in many projects at the company that gave me plenty career and personal development opportunities. Below is a sample of some of the projects where I was either an individual contributor or a sole developer.
+
 #### Projects
+
 - A project management platform with a specific focus on the construction industry.
 - A redesign and development of a web app for a sports betting company to use the latest web technologies.
 - The creation of a set of web APIs to help an accounting cloud software vendor enhance its offerings.
@@ -22,6 +21,7 @@ or a sole developer.
 - An off-line tool for all European business units within [CHEP](https://www.chep.com) that enables efficient administration of accounts and customer visits by mobile executives.
 
 ### Tech Stack
+
 - #### Programming Languages
   - C#
   - JavaScript
@@ -46,7 +46,7 @@ or a sole developer.
   - ##### Testing
     - NSubstitute
 - #### Data
-  - Postgres
+  - PostgreSQL
   - Elasticsearch
   - Neo4J
   - Microsoft SQL Server
