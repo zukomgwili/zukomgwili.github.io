@@ -55,6 +55,17 @@ jobs:
           chmod +x scripts/check-discoverability.sh || true
           scripts/check-discoverability.sh _site
 
+          validate-front-matter:
+            runs-on: ubuntu-latest
+            steps:
+              - uses: actions/checkout@v4
+              - name: Validate front-matter
+                run: |
+                  chmod +x scripts/validate-front-matter.sh || true
+                  ./scripts/validate-front-matter.sh .
+
+          build:
+            needs: validate-front-matter
   pr-compliance:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'

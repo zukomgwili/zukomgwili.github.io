@@ -29,7 +29,7 @@ description: "Task list for feature implementation: Modernize website look & con
 - [ ] T008 Update `resume.html` (site root) and/or `_layouts/resume.html` to link to `/assets/resume.pdf` and show a clear Download resume link/button (no external embeds) — file path: `/resume.html` or `_layouts/resume.html`.
  - [x] T008 Update `resume.html` (site root) and/or `_layouts/resume.html` to link to `/assets/resume.pdf` and show a clear Download resume link/button (no external embeds) — file path: `/resume.html` or `_layouts/resume.html`.
  - [x] T009 [P] Implement link-check configuration and a11y configuration used by CI (e.g., `.github/ci/link-check-config.yml`, `.github/ci/a11y-config.yml`) and a small sanity test runner script `scripts/ci-checks.sh` to be called from the workflow.
-- [ ] T010 [P] Add tests or scripts to verify that updated front-matter fields don't break the build (example: `scripts/validate-front-matter.sh`) — ensure this runs in CI and emits human-readable errors.
+ - [x] T010 [P] Add tests or scripts to verify that updated front-matter fields don't break the build (example: `scripts/validate-front-matter.sh`) — ensure this runs in CI and emits human-readable errors.
 
 ---
 
