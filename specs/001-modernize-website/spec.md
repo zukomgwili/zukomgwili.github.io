@@ -100,7 +100,6 @@ As a reader or potential employer, I want clearer organization of blog posts and
 
 ### Functional Requirements
 
- - **FR-001**: The site MUST provide a persistent, discoverable "About" page with a short biography, public links (LinkedIn + Facebook) and a contact email (mailto link). No third-party contact forms will be added by default.
  - **FR-001**: The site MUST provide a persistent, discoverable "About" page with a short biography, public links (LinkedIn + Facebook) and a contact email (mailto link). No third-party contact forms will be added by default. The About page MUST include a downloadable resume link that points to a repository asset (recommended path: `assets/resume.pdf`).
  - **FR-002**: The site layout MUST be updated with a modern, responsive theme (typography, spacing, color palette) and improve mobile usability without breaking existing content structure.
  - **FR-003**: All updated pages MUST pass automated CI checks: a full site build, link-checker for internal/external links, and automated accessibility checks (WCAG AA where reasonable).
@@ -160,9 +159,7 @@ Versioning Impact: By default this will be a MINOR (non-breaking) change unless 
 
 ### Session 2025-11-25
 
-- Q: Preferred contact method for visitors → A: Option A — mailto (email) link. No third-party contact forms will be used unless explicitly requested and justified.
  - Q: Preferred contact method for visitors → A: Option A — mailto (email) link. No third-party contact forms will be used unless explicitly requested and justified.
- - Q: Downloadable resume hosting → A: Option A — include a PDF inside the repository (recommended path: `assets/resume.pdf`) so the document is versioned, auditable, and always available.
  - Q: Downloadable resume hosting → A: Option A — include a PDF inside the repository (recommended path: `assets/resume.pdf`) so the document is versioned, auditable, and always available.
  - Q: Social integration approach → A: Option A — direct links only (no third-party widgets); this preserves visitor privacy and aligns with the constitution.
 

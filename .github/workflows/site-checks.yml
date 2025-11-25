@@ -1,0 +1,47 @@
+name: Site checks
+
+on:
+  pull_request:
+    branches: [ main, '001-modernize-website' ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.x'
+      - name: Install Bundler deps
+        run: bundle config set --local path 'vendor/bundle' && bundle install --jobs 4 --retry 3
+      - name: Build site
+        run: bundle exec jekyll build --destination _site
+
+  privacy-check:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run privacy enforcement check
+        run: |
+          chmod +x scripts/check-third-party-scripts.sh || true
+          scripts/check-third-party-scripts.sh _site
+
+  # Placeholder link-check and a11y jobs — implementers should choose tools and adjust config
+  link-check:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Link checker (placeholder)
+        run: echo "Configure htmlproofer or other link-checker here to validate _site"
+
+  a11y-check:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Accessibility check (placeholder)
+        run: echo "Add Pa11y/axe-runner job here; ensure page list is limited to changed pages"
