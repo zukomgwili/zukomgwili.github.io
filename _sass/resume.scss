@@ -1,26 +1,31 @@
 @media print {
   nav {
     display: none;
-  }
-}
+    ul {
+      list-style: none;
+      padding: 0;
+    }
 
-#resume {
-  padding: 1rem;
+    .school {
+      margin: 1rem 0;
 
-  .section-title {
-    font-size: 2rem;
-    background: aliceblue;
-    padding: 1rem;
-    border-radius: 0.5rem;
-  }
+      .education-list {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        gap: 0.25rem 1rem;
+        margin: 0;
 
+        dt { font-weight: 700; }
+        dd { margin: 0 0 0.5rem 0; }
+      }
+    }
   #work-history {
     .work-history-item {
       break-after: left;
       list-style: none;
       margin-bottom: 1.5rem;
       padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 
       .work-history-header {
         display: flex;
@@ -36,7 +41,7 @@
       }
 
       .work-meta {
-        color: rgba(0,0,0,0.65);
+        color: rgba(0, 0, 0, 0.65);
         font-size: 0.95rem;
         display: flex;
         gap: 0.75rem;
@@ -48,7 +53,7 @@
       }
 
       .work-dates {
-        color: rgba(0,0,0,0.6);
+        color: rgba(0, 0, 0, 0.6);
         font-size: 0.9rem;
       }
 
@@ -65,10 +70,12 @@
 
     .school {
       margin: 1rem;
-      td:first-of-type{
+
+      td:first-of-type {
         font-weight: bold;
       }
-      td:last-of-type{
+
+      td:last-of-type {
         padding: 0 0 0 1rem;
       }
     }

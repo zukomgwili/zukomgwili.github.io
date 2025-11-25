@@ -40,38 +40,30 @@ title: Resume
         <ul id="school-list">
             {% for education in site.education %}
             <li class="school">
-                <table>
-                    <tr>
-                        <td>School</td>
-                        <td>{{education.school}}</td>
-                    </tr>
-                    <tr>
-                        <td>Country/Region</td>
-                        <td>{{education.country_region}}</td>
-                    </tr>
-                    <tr>
-                        <td>State/Province</td>
-                        <td>{{education.state_province}}</td>
-                    </tr>
-                    <tr>
-                        <td>Start Year</td>
-                        <td>{{education.start_year}}</td>
-                    </tr>
+                <dl class="education-list">
+                    <dt>School</dt>
+                    <dd>{{ education.school }}</dd>
+
+                    <dt>Country / Region</dt>
+                    <dd>{{ education.country_region }}</dd>
+
+                    <dt>State / Province</dt>
+                    <dd>{{ education.state_province }}</dd>
+
+                    <dt>Start Year</dt>
+                    <dd>{{ education.start_year }}</dd>
+
                     {% if education.end_year %}
-                    <tr>
-                        <td>End Year</td>
-                        <td>{{education.end_year}}</td>
-                    </tr>
+                    <dt>End Year</dt>
+                    <dd>{{ education.end_year }}</dd>
                     {% endif %}
-                    <tr>
-                        <td>Field Of Study</td>
-                        <td>{{education.field_of_study}}</td>
-                    </tr>
-                    <tr>
-                        <td>Level Of Education</td>
-                        <td>{{education.level_of_education}}</td>
-                    </tr>
-                </table>
+
+                    <dt>Field of Study</dt>
+                    <dd>{{ education.field_of_study }}</dd>
+
+                    <dt>Level of Education</dt>
+                    <dd>{{ education.level_of_education }}</dd>
+                </dl>
 
             </li>
             {% endfor %}
