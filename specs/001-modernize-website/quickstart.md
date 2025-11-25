@@ -46,6 +46,23 @@ CI notes: The site CI (see `.github/workflows/site-checks.yml`) includes a disco
 - Primary styles: `assets/css/styles.scss` and any `_sass` partials (e.g., `_sass/main.scss`) — update variables and tokens for color/typography.
 - Templates: `_layouts/default.html`, `_includes/header.html` and `_includes/footer.html` are the first places to adjust for header/footer polish.
 
+6) Visual sampling (optional)
+
+To capture quick visual snapshots for reviewers (mobile/tablet/desktop) run the optional visual sample collector after you build the site:
+
+```bash
+# Build site
+bundle exec jekyll build --destination _site
+
+# Run the visual sampling wrapper (will install Playwright & browsers temporarily)
+./scripts/visual-sample-tests.sh _site 4000 visual-snapshots
+
+# Inspect screenshots in visual-snapshots/ — CI uploads these as artifacts for PRs
+ls -l visual-snapshots
+```
+
+This step is optional (keeps CI faster when disabled), but can be valuable when reviewing visual changes. The CI job `visual-sampling` implements this during PR checks and saves artifacts for reviewer download.
+
 5) CI expectations
 
 - New PRs should pass the site build, link checks and automated accessibility checks before merging.
