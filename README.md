@@ -19,6 +19,17 @@ Key areas updated by the modernize-website feature:
     - `scripts/check-image-alts.sh` / `scripts/check-image-alts.py` — scans built HTML for <img> with missing alt attributes
     - `scripts/contrast-check.js` — Playwright + axe-core based color-contrast checks for key pages
 
+    Pre-commit hooks
+
+    The repository includes a pre-commit hook (Husky) that runs a small staged-file image-alt linter. To enable the hooks locally run:
+
+    ```bash
+    npm install
+    npm run prepare
+    ```
+
+    This will ensure `git commit` runs `./scripts/check-image-alts-staged.sh` and blocks commits when markdown/HTML staged files contain images with missing alt text.
+
 How to make small changes safely
 
 1. Edit content (for resume/work-history, change files in `_work_history/*.md`; for site content edit `about.md` or posts in `_posts`).

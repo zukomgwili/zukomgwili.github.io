@@ -105,6 +105,17 @@ node scripts/contrast-check.js http://127.0.0.1:4000
 
 CI: The checks also run in CI (`image-alt-check` and `color-contrast-check` jobs) to surface regressions during PRs.
 
+Pre-commit hooks (optional)
+
+To help catch missing alt attributes while authoring, a staged-file check runs via Husky on pre-commit. Enable it locally with:
+
+```bash
+npm install
+npm run prepare
+```
+
+After that, `git commit` will run the staged image alt checker and block commits that contain image tags without alt text in staged markdown/html files.
+
 5) CI expectations
 
 - New PRs should pass the site build, link checks and automated accessibility checks before merging.
