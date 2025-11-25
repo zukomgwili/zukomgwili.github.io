@@ -38,7 +38,7 @@ description: "Task list for feature implementation: Modernize website look & con
 
 **Independent Test**: A new visitor can find an 'About' link from the homepage, visit `/about.html` and see a short bio, an email mailto link and linked LinkedIn + Facebook links; the Download Resume link points to `/assets/resume.pdf`.
 
-- [ ] T011 [US1] Create `about.md` content (short human-readable biography), add the mailto contact link and LinkedIn + Facebook direct links — file path: `/about.md`.
+ - [x] T011 [US1] Create `about.md` content (short human-readable biography), add the mailto contact link and LinkedIn + Facebook direct links — file path: `/about.md`.
 - [ ] T012 [US1] Update site navigation (`_includes/header.html` and/or `_includes/navigation.html`) to include 'About' and 'Resume' links and ensure they are keyboard-accessible and announced by screen readers.
 - [ ] T013 [US1] Add an automated discoverability check script `scripts/check-discoverability.sh` that attempts to fetch `/` and confirm `/about.html` and `/assets/resume.pdf` are reachable in the generated site — file path: `/scripts/check-discoverability.sh` and integrate it into CI as a sanity check.
 - [ ] T014 [US1] Add content accessibility checks and manual review steps to PR template (`.github/PULL_REQUEST_TEMPLATE.md`) instructing reviewers to check contact info & links.
