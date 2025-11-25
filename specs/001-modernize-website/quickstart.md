@@ -81,6 +81,28 @@ Examples:
 
 Tip: Run the check in CI as a soft-warning (does not fail the PR, but makes reviewers aware), or use `--apply` locally and inspect changes before committing.
 
+8) Accessibility focused checks (image alt and color contrast)
+
+The repository now includes two additional checks to help prevent common accessibility regressions:
+
+- Image alt-text scanning (Python):
+
+```bash
+# report missing image alt text in the built site
+./scripts/check-image-alts.sh _site
+```
+
+- Color-contrast (Playwright + axe-core):
+
+```bash
+# Start a local server and run the Playwright contrast checker against core pages
+bundle exec jekyll build --destination _site
+python3 -m http.server 4000 -d _site &
+node scripts/contrast-check.js http://127.0.0.1:4000
+```
+
+CI: The checks also run in CI (`image-alt-check` and `color-contrast-check` jobs) to surface regressions during PRs.
+
 5) CI expectations
 
 - New PRs should pass the site build, link checks and automated accessibility checks before merging.

@@ -135,6 +135,47 @@ jobs:
           npx --yes pa11y http://127.0.0.1:4000/ || exit 1
           npx --yes pa11y http://127.0.0.1:4000/about/ || exit 1
 
+  image-alt-check:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download built site
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: _site
+      - name: Scan for missing image alt attributes
+        run: |
+          chmod +x scripts/check-image-alts.sh || true
+          ./scripts/check-image-alts.sh _site
+
+  color-contrast-check:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download built site
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: _site
+      - name: Start static server
+        run: |
+          python3 -m http.server 4000 -d _site &
+          for i in {1..10}; do curl -sSf http://127.0.0.1:4000/ && break || sleep 1; done
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install Playwright browsers
+        run: |
+          npm ci || true
+          npx playwright install --with-deps || true
+      - name: Run color-contrast checks (axe-core via Playwright)
+        run: |
+          node scripts/contrast-check.js http://127.0.0.1:4000
+
   responsive-check:
     needs: build
     runs-on: ubuntu-latest

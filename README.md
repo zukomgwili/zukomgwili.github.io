@@ -15,6 +15,9 @@ Key areas updated by the modernize-website feature:
 - Tests & CI:
   - The repository has CI gates in `.github/workflows/site-checks.yml` which run site build, link checks, accessibility checks and a number of smoke tests.
   - Helpful scripts live in `scripts/` (discoverability, front-matter validators, responsive tests, visual sampling, resume format validation, and front-matter normalizers).
+   - Helpful scripts live in `scripts/` (discoverability, front-matter validators, responsive tests, visual sampling, resume format validation, and front-matter normalizers). New accessibility helpers:
+    - `scripts/check-image-alts.sh` / `scripts/check-image-alts.py` — scans built HTML for <img> with missing alt attributes
+    - `scripts/contrast-check.js` — Playwright + axe-core based color-contrast checks for key pages
 
 How to make small changes safely
 
