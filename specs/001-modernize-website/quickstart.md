@@ -18,12 +18,28 @@ bundle exec jekyll serve --livereload
 
 3) Add/replace the repository resume asset
 
-Place `resume.pdf` at `assets/resume.pdf` as the canonical downloadable file. Example:
+Place `resume.pdf` at `assets/resume.pdf` as the canonical downloadable file. Keep the filename exactly `resume.pdf` so templates and discovery scripts can locate it automatically. Recommended checks when replacing the file:
+
+- Keep the PDF text-searchable (not just a scanned image) and remove unnecessary personal data — the repo is public.
+- Keep file size small where possible (try to keep under ~2MB) to keep page load and CI artifacts fast.
+- Make sure the document is accessible (tagged PDF, readable by screen readers) if you plan to include it as the canonical resume.
+- If you must change the path, update `_layouts/resume.html` or the templates that reference the asset and update `scripts/check-discoverability.sh` tests accordingly.
+
+Example commands to update the asset and commit it:
 
 ```bash
+# Copy your final PDF into the canonical asset path
 cp ~/Downloads/myresume.pdf assets/resume.pdf
-git add assets/resume.pdf && git commit -m "chore(spec): add resume asset for About page"
+
+# Check the built site contains the file and is discoverable
+bundle exec jekyll build --destination _site
+./scripts/check-discoverability.sh _site
+
+# Commit and push
+git add assets/resume.pdf && git commit -m "chore(spec): update canonical resume asset" && git push origin HEAD
 ```
+
+CI notes: The site CI (see `.github/workflows/site-checks.yml`) includes a discoverability check which ensures that `about.html` and `assets/resume.pdf` exist in the built `_site` and will fail the PR if they are missing. Follow the PR checklist (T014) to include accessibility verification when publishing an updated resume.
 
 4) Editing styles and templates
 
