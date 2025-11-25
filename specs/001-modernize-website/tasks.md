@@ -78,9 +78,8 @@ description: "Task list for feature implementation: Modernize website look & con
 
  - [x] T022 [P] Add documentation updates (README, `specs/001-modernize-website/`) describing the new About page, resume location, design tokens and how to modify them.
  - [x] T023 [P] Run a focused accessibility audit and manual remediation pass for all changed pages; create `specs/001-modernize-website/accessibility-report.md` with findings.
-- [ ] T024 [P] Optimize images and assets (lossless compression) and remove any large unused CSS rules; ensure performance is not regressing.
  - [x] T024 [P] Optimize images and assets (lossless compression) and remove any large unused CSS rules; ensure performance is not regressing.
- - [ ] T025 [P] Finalize CI: ensure the `.github/workflows/site-checks.yml` workflow runs on PRs and branch merges; add human-friendly output and remediation instructions for failures (file path: `.github/workflows/site-checks.yml`).
+ - [x] T025 [P] Finalize CI: ensure the `.github/workflows/site-checks.yml` workflow runs on PRs and branch merges; add human-friendly output and remediation instructions for failures (file path: `.github/workflows/site-checks.yml`).
  - [x] T026 [P] Add a privacy enforcement script and CI step to detect third-party tracking scripts; create `scripts/check-third-party-scripts.sh` and add job step to `.github/workflows/site-checks.yml`.
  - [x] T027 [P] Add PR compliance enforcement: `scripts/check-pr-compliance.sh` and workflow job to fail PRs missing a constitution compliance note.
  - [x] T028 [P] Add Lighthouse CI job to collect Lighthouse reports for baseline and upload as artifacts (workflow updated to include lighthouse job).
