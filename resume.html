@@ -5,32 +5,32 @@ title: Resume
 <article id="resume">
     <div class="resume-actions">
         <p class="resume-download">
-            <a class="btn btn-download" href="/assets/resume.pdf" download="resume.pdf" aria-label="Download full resume as PDF">Download a copy (PDF)</a>
+            <a class="btn btn-download" href="/assets/resume.pdf" download="resume.pdf"
+                aria-label="Download full resume as PDF">Download a copy (PDF)</a>
         </p>
     </div>
     <section id="work-history">
         <h1 class="section-title">Work History</h1>
         <ul id="work-history-list">
             {% for experience in site.work_history %}
-            <li id="work-history-item">
-                <h2 class="work-history-item-title">{{experience.company_name}}</h2>
-                <table>
-                    <tr>
-                        <td>Job Title</td>
-                        <td>{{experience.job_title}}</td>
-                    </tr>
-                    <tr>
-                        <td>Start Date</td>
-                        <td>{{experience.start_date}}</td>
-                    </tr>
-                    {% if experience.end_date %}
-                    <tr>
-                        <td>End Date</td>
-                        <td>{{experience.end_date}}</td>
-                    </tr>
-                    {% endif %}
-                </table>
-                {{ experience.content }}
+            <li class="work-history-item">
+                <header class="work-history-header">
+                    <h3 class="work-company">{{ experience.company_name }}</h3>
+                    <div class="work-meta">
+                        <span class="work-title">{{ experience.job_title }}</span>
+                        <span class="work-dates">
+                            {% if experience.start_date %}
+                            <time class="start-date">{{ experience.start_date }}</time>
+                            {% endif %}
+                            {% if experience.end_date %}
+                            &nbsp;—&nbsp;<time class="end-date">{{ experience.end_date }}</time>
+                            {% endif %}
+                        </span>
+                    </div>
+                </header>
+                <div class="work-body">
+                    {{ experience.content }}
+                </div>
             </li>
             {% endfor %}
         </ul>

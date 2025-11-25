@@ -178,6 +178,21 @@ jobs:
           name: visual-snapshots
           path: visual-snapshots
 
+  resume-format:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download built site
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: _site
+      - name: Validate resume formatting
+        run: |
+          chmod +x scripts/test-resume-format.sh || true
+          ./scripts/test-resume-format.sh _site
+
   normalize-front-matter:
     needs: build
     runs-on: ubuntu-latest

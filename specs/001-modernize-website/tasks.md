@@ -69,7 +69,7 @@ description: "Task list for feature implementation: Modernize website look & con
 
 - [x] T019 [US3] Normalize blog post templates to show `title`, `date`, `excerpt`, `tags` — update `_layouts/post.html` and any index/listing templates to use these fields consistently.
 - [x] T020 [US3] Add a validation script `scripts/normalize-front-matter.sh` that finds posts with missing `excerpt` or `date` and optionally adds fallback values; add this script to CI as a soft-warning job.
-- [ ] T021 [US3] Update resume page templates to read `site.work_history` entries (e.g., `_work_history/*.md`) and display `company_name`, `job_title`, `start_date`, `end_date` uniformly; add tests verifying basic formatting for sample entries.
+- [x] T021 [US3] Update resume page templates to read `site.work_history` entries (e.g., `_work_history/*.md`) and display `company_name`, `job_title`, `start_date`, `end_date` uniformly; add tests verifying basic formatting for sample entries.
 
 ---
 
