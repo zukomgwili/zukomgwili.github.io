@@ -40,21 +40,25 @@ body {
   border-bottom: 1px solid lighten($bg, 6%);
   padding: $space-sm $space-md;
 }
+
 .site-branding {
   display: flex;
   flex-direction: column;
   gap: $space-xs;
   margin-bottom: $space-sm;
 }
+
 .site-title {
   font-weight: 700;
   color: $brand-color;
   text-decoration: none;
 }
+
 .site-description {
   color: $muted;
   font-size: 0.9rem;
 }
+
 .site-footer {
   border-top: 1px solid lighten($bg, 6%);
   padding: $space-md;
@@ -62,7 +66,43 @@ body {
   font-size: 0.9rem;
   background: transparent;
 }
+
 .site-footer .wrap {
   max-width: 66rem;
   margin: 0 auto;
+}
+
+/* page container & content */
+.wrap {
+  max-width: 66rem;
+  margin: 0 auto;
+  padding: 0 $space-md;
+}
+
+.content-wrapper {
+  padding: $space-lg 0;
+}
+
+/* article / post styles */
+.post {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: $space-md 0;
+}
+.post-header {
+  margin-bottom: $space-md;
+}
+.post-title {
+  font-size: 2rem;
+  line-height: 1.15;
+  margin: 0 0 $space-sm 0;
+}
+.post-meta {
+  color: $muted;
+  font-size: 0.9rem;
+  margin: 0 0 $space-md 0;
+}
+.post-content img {
+  max-width: 100%;
+  height: auto;
 }

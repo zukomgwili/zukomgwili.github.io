@@ -25,7 +25,7 @@ description: "Task list for feature implementation: Modernize website look & con
 **⚠️ CRITICAL**: No user story implementation should merge before these tasks complete.
 
  - [x] T006 Ensure header/footer include updated navigation placeholders & accessibility improvements (skip-links, semantic nav landmarks) — edit files `_includes/header.html` and `_includes/footer.html` and add `aria` attributes where appropriate.
-- [ ] T007 Update `_layouts/default.html` and `_layouts/post.html` to reference the new SCSS tokens and provide default typography and spacing blocks.
+- [x] T007 Update `_layouts/default.html` and `_layouts/post.html` to reference the new SCSS tokens and provide default typography and spacing blocks.
 - [ ] T008 Update `resume.html` (site root) and/or `_layouts/resume.html` to link to `/assets/resume.pdf` and show a clear Download resume link/button (no external embeds) — file path: `/resume.html` or `_layouts/resume.html`.
  - [x] T009 [P] Implement link-check configuration and a11y configuration used by CI (e.g., `.github/ci/link-check-config.yml`, `.github/ci/a11y-config.yml`) and a small sanity test runner script `scripts/ci-checks.sh` to be called from the workflow.
 - [ ] T010 [P] Add tests or scripts to verify that updated front-matter fields don't break the build (example: `scripts/validate-front-matter.sh`) — ensure this runs in CI and emits human-readable errors.
