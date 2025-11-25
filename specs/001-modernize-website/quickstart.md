@@ -46,6 +46,8 @@ CI notes: The site CI (see `.github/workflows/site-checks.yml`) includes a disco
 - Primary styles: `assets/css/styles.scss` and any `_sass` partials (e.g., `_sass/main.scss`) — update variables and tokens for color/typography.
 - Templates: `_layouts/default.html`, `_includes/header.html` and `_includes/footer.html` are the first places to adjust for header/footer polish.
 
+More detailed feature-specific guidance is available at `specs/001-modernize-website/README.md` (design tokens, content paths, CI scripts and developer tips).
+
 6) Visual sampling (optional)
 
 To capture quick visual snapshots for reviewers (mobile/tablet/desktop) run the optional visual sample collector after you build the site:

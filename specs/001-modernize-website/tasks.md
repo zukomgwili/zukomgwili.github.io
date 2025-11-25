@@ -77,7 +77,7 @@ description: "Task list for feature implementation: Modernize website look & con
 
 **Purpose**: Final polish, documentation, and cross-cutting improvements required for a production-ready site.
 
-- [ ] T022 [P] Add documentation updates (README, `specs/001-modernize-website/`) describing the new About page, resume location, design tokens and how to modify them.
+ - [x] T022 [P] Add documentation updates (README, `specs/001-modernize-website/`) describing the new About page, resume location, design tokens and how to modify them.
 - [ ] T023 [P] Run a focused accessibility audit and manual remediation pass for all changed pages; create `specs/001-modernize-website/accessibility-report.md` with findings.
 - [ ] T024 [P] Optimize images and assets (lossless compression) and remove any large unused CSS rules; ensure performance is not regressing.
 - [ ] T025 [P] Finalize CI: ensure the `.github/workflows/site-checks.yml` workflow runs on PRs and branch merges; add human-friendly output and remediation instructions for failures (file path: `.github/workflows/site-checks.yml`).
