@@ -1,7 +1,8 @@
 @import "tokens";
 @import "resume";
 
-html, body {
+html,
+body {
   font-family: $font-family-sans;
   font-size: $font-size-base;
   line-height: $line-height-base;
@@ -26,10 +27,42 @@ html, body {
   transition: top 0.15s ease-in-out, opacity 0.15s ease-in-out;
   opacity: 0;
 }
+
 .skip-link:focus {
   top: 12px;
   opacity: 1;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(59,130,246,0.25);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
 }
 
+/* header / footer basics */
+.site-header {
+  border-bottom: 1px solid lighten($bg, 6%);
+  padding: $space-sm $space-md;
+}
+.site-branding {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+  margin-bottom: $space-sm;
+}
+.site-title {
+  font-weight: 700;
+  color: $brand-color;
+  text-decoration: none;
+}
+.site-description {
+  color: $muted;
+  font-size: 0.9rem;
+}
+.site-footer {
+  border-top: 1px solid lighten($bg, 6%);
+  padding: $space-md;
+  color: $muted;
+  font-size: 0.9rem;
+  background: transparent;
+}
+.site-footer .wrap {
+  max-width: 66rem;
+  margin: 0 auto;
+}
