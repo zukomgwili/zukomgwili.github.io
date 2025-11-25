@@ -29,6 +29,16 @@ jobs:
           chmod +x scripts/check-third-party-scripts.sh || true
           scripts/check-third-party-scripts.sh _site
 
+  discoverability:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run discoverability check script
+        run: |
+          chmod +x scripts/check-discoverability.sh || true
+          scripts/check-discoverability.sh _site
+
   pr-compliance:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
