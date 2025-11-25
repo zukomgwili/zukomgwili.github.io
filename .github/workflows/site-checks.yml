@@ -19,11 +19,22 @@ jobs:
       - name: Build site
         run: bundle exec jekyll build --destination _site
 
+      - name: Upload built site as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: _site
+
   privacy-check:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Download built site
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: _site
       - name: Run privacy enforcement check
         run: |
           chmod +x scripts/check-third-party-scripts.sh || true
@@ -34,6 +45,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Download built site
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: _site
       - name: Run discoverability check script
         run: |
           chmod +x scripts/check-discoverability.sh || true
@@ -55,15 +71,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Download built site
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: _site
       - name: Run HTMLProofer (link-check)
         run: |
-          bundle exec htmlproofer _site --assume_extension --url_ignore '/#' || true
+          bundle exec htmlproofer _site --assume_extension --url_ignore '/#'
 
   lighthouse:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Download built site
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: _site
       - name: Run Lighthouse CI (collect report)
         uses: treosh/lighthouse-ci-action@v9
         with:
@@ -83,9 +109,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Accessibility check (pa11y)
-        uses: ahoffman/pa11y-action@v3
+      - name: Download built site
+        uses: actions/download-artifact@v4
         with:
-          urls: |
-            http://127.0.0.1:4000/
-            http://127.0.0.1:4000/about/
+          name: site
+          path: _site
+      - name: Start temporary static server
+        run: |
+          python3 -m http.server 4000 -d _site &
+          # Wait for server to be ready
+          for i in {1..10}; do curl -sSf http://127.0.0.1:4000/ && break || sleep 1; done
+      - name: Run pa11y accessibility checks
+        run: |
+          npx --yes pa11y http://127.0.0.1:4000/ || exit 1
+          npx --yes pa11y http://127.0.0.1:4000/about/ || exit 1
