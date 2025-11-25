@@ -3,6 +3,8 @@ name: Site checks
 on:
   pull_request:
     branches: [ main, '001-modernize-website' ]
+  push:
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -55,17 +57,15 @@ jobs:
           chmod +x scripts/check-discoverability.sh || true
           scripts/check-discoverability.sh _site
 
-          validate-front-matter:
-            runs-on: ubuntu-latest
-            steps:
-              - uses: actions/checkout@v4
-              - name: Validate front-matter
-                run: |
-                  chmod +x scripts/validate-front-matter.sh || true
-                  ./scripts/validate-front-matter.sh .
-
-          build:
-            needs: validate-front-matter
+  validate-front-matter:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate front-matter
+        run: |
+          chmod +x scripts/validate-front-matter.sh || true
+          ./scripts/validate-front-matter.sh .
   pr-compliance:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
@@ -245,3 +245,42 @@ jobs:
         run: |
           chmod +x scripts/normalize-front-matter.sh || true
           ./scripts/normalize-front-matter.sh --dry-run || true
+
+  final-report:
+    needs: [build, privacy-check, discoverability, validate-front-matter, pr-compliance, link-check, lighthouse, a11y-check, image-alt-check, color-contrast-check, responsive-check, visual-sampling, resume-format, normalize-front-matter]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: CI run summary
+        run: |
+          echo "\n--- CI SUMMARY: job results (PASS/FAIL/NEUTRAL) ---\n"
+          echo "build: ${{ needs.build.result }}"
+          echo "privacy-check: ${{ needs.privacy-check.result }}"
+          echo "discoverability: ${{ needs.discoverability.result }}"
+          echo "validate-front-matter: ${{ needs.validate-front-matter.result }}"
+          echo "pr-compliance: ${{ needs.pr-compliance.result }}"
+          echo "link-check: ${{ needs.link-check.result }}"
+          echo "lighthouse: ${{ needs.lighthouse.result }}"
+          echo "a11y-check: ${{ needs.a11y-check.result }}"
+          echo "image-alt-check: ${{ needs.image-alt-check.result }}"
+          echo "color-contrast-check: ${{ needs.color-contrast-check.result }}"
+          echo "responsive-check: ${{ needs.responsive-check.result }}"
+          echo "visual-sampling: ${{ needs.visual-sampling.result }}"
+          echo "resume-format: ${{ needs.resume-format.result }}"
+          echo "normalize-front-matter: ${{ needs.normalize-front-matter.result }}"
+          echo "\nIf any checks failed, please review the first failing job's logs and the remediation hints below:\n"
+          echo " - Build failures: ensure Ruby and Bundler are correct (ruby/setup-ruby), run 'bundle install' locally and try 'bundle exec jekyll build --destination _site' to reproduce."
+          echo " - Discoverability: check '/about.html' and 'assets/resume.pdf' are present in the built site. Use ./scripts/check-discoverability.sh locally."
+          echo " - Front-matter: run ./scripts/validate-front-matter.sh to find bad or missing metadata and fix files under _posts/ or _work_history/."
+          echo " - Accessibility (a11y/contrast/image-alt): inspect the failing logs and run the relevant scripts (scripts/check-image-alts.sh, node scripts/contrast-check.js) locally; run 'npm ci' to prepare Playwright."
+          echo " - Lighthouse: review .lighthouseci/*.json artifacts for insights and performance regressions."
+          echo " - For any failures, add a short troubleshooting note to the PR describing attempts to reproduce locally (commands tried, local outputs)."
+      - name: Upload quick CI report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-summary
+          path: |
+            # capture the built site for debugging
+            _site || true
+            # allow reviewers to download the compact summary
+            .
