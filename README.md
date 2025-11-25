@@ -55,3 +55,23 @@ bundle exec jekyll build --destination _site
 ```
 
 See `specs/001-modernize-website/README.md` for more feature-specific guidance, file locations and development tips.
+
+## Asset optimization helpers
+
+To keep assets and CI artifacts compact you can run lossless optimization helpers that operate on the built site and write their outputs to `_site/optimized/` (non-destructive by default):
+
+```bash
+# Build site
+bundle exec jekyll build --destination _site
+
+# Optimize images into _site/optimized/assets (svgo + imagemin if available)
+npm run optimize:images
+
+# Strip unused CSS into _site/optimized/css (PurgeCSS)
+npm run optimize:css
+
+# Inspect results
+ls -la _site/optimized
+```
+
+The scripts will use `npx` to fetch the required tools on first run if they are not already installed. This lets you review and adopt optimised assets manually or wire them into a CI job.

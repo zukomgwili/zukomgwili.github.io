@@ -26,7 +26,6 @@ description: "Task list for feature implementation: Modernize website look & con
 
  - [x] T006 Ensure header/footer include updated navigation placeholders & accessibility improvements (skip-links, semantic nav landmarks) — edit files `_includes/header.html` and `_includes/footer.html` and add `aria` attributes where appropriate.
 - [x] T007 Update `_layouts/default.html` and `_layouts/post.html` to reference the new SCSS tokens and provide default typography and spacing blocks.
-- [ ] T008 Update `resume.html` (site root) and/or `_layouts/resume.html` to link to `/assets/resume.pdf` and show a clear Download resume link/button (no external embeds) — file path: `/resume.html` or `_layouts/resume.html`.
  - [x] T008 Update `resume.html` (site root) and/or `_layouts/resume.html` to link to `/assets/resume.pdf` and show a clear Download resume link/button (no external embeds) — file path: `/resume.html` or `_layouts/resume.html`.
  - [x] T009 [P] Implement link-check configuration and a11y configuration used by CI (e.g., `.github/ci/link-check-config.yml`, `.github/ci/a11y-config.yml`) and a small sanity test runner script `scripts/ci-checks.sh` to be called from the workflow.
  - [x] T010 [P] Add tests or scripts to verify that updated front-matter fields don't break the build (example: `scripts/validate-front-matter.sh`) — ensure this runs in CI and emits human-readable errors.
@@ -80,7 +79,7 @@ description: "Task list for feature implementation: Modernize website look & con
  - [x] T022 [P] Add documentation updates (README, `specs/001-modernize-website/`) describing the new About page, resume location, design tokens and how to modify them.
  - [x] T023 [P] Run a focused accessibility audit and manual remediation pass for all changed pages; create `specs/001-modernize-website/accessibility-report.md` with findings.
 - [ ] T024 [P] Optimize images and assets (lossless compression) and remove any large unused CSS rules; ensure performance is not regressing.
-- [ ] T025 [P] Finalize CI: ensure the `.github/workflows/site-checks.yml` workflow runs on PRs and branch merges; add human-friendly output and remediation instructions for failures (file path: `.github/workflows/site-checks.yml`).
+ - [x] T024 [P] Optimize images and assets (lossless compression) and remove any large unused CSS rules; ensure performance is not regressing.
  - [ ] T025 [P] Finalize CI: ensure the `.github/workflows/site-checks.yml` workflow runs on PRs and branch merges; add human-friendly output and remediation instructions for failures (file path: `.github/workflows/site-checks.yml`).
  - [x] T026 [P] Add a privacy enforcement script and CI step to detect third-party tracking scripts; create `scripts/check-third-party-scripts.sh` and add job step to `.github/workflows/site-checks.yml`.
  - [x] T027 [P] Add PR compliance enforcement: `scripts/check-pr-compliance.sh` and workflow job to fail PRs missing a constitution compliance note.

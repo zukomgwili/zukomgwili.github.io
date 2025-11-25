@@ -48,6 +48,29 @@ CI notes: The site CI (see `.github/workflows/site-checks.yml`) includes a disco
 
 More detailed feature-specific guidance is available at `specs/001-modernize-website/README.md` (design tokens, content paths, CI scripts and developer tips).
 
+9) Asset optimization (lossless, non-destructive)
+
+To keep repository assets and CI artifacts small, this repo provides two helper scripts that run lossless optimization on generated site assets and remove unused CSS from the built site. They operate non-destructively and write results to `_site/optimized/`.
+
+Quick example run (after building the site):
+
+```bash
+# Build the site
+bundle exec jekyll build --destination _site
+
+# (optional) install node deps if you want cached JS toolchains
+npm ci
+
+# Run quick image and CSS optimizations — output is written to _site/optimized/
+npm run optimize:images
+npm run optimize:css
+
+# Review the results at _site/optimized/ then decide if you want to adopt the optimized assets in your pipeline/CI
+ls -la _site/optimized
+```
+
+Note: The scripts use npx to run svgo and purgecss — this may download tools on first run. The scripts are intentionally non-destructive by default so you can inspect improvements before changing any committed assets or updating templates.
+
 6) Visual sampling (optional)
 
 To capture quick visual snapshots for reviewers (mobile/tablet/desktop) run the optional visual sample collector after you build the site:
