@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "optimize:images": "bash scripts/optimize-images.sh",
+    "optimize:css": "bash scripts/purge-unused-css.sh",
+    "optimize:assets": "npm run optimize:images && npm run optimize:css"
   },
   "repository": {
     "type": "git",
