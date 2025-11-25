@@ -134,3 +134,22 @@ jobs:
         run: |
           npx --yes pa11y http://127.0.0.1:4000/ || exit 1
           npx --yes pa11y http://127.0.0.1:4000/about/ || exit 1
+
+  responsive-check:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download built site
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: _site
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Run responsive smoke tests
+        run: |
+          chmod +x scripts/responsive-smoke-tests.sh || true
+          ./scripts/responsive-smoke-tests.sh _site 4000
