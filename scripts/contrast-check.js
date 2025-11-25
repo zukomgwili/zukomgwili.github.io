@@ -10,9 +10,16 @@ async function runChecks(url) {
   const page = await context.newPage();
   await page.goto(url, { waitUntil: 'networkidle' });
 
-  // inject axe
-  const axeSource = await (await fetch(AXE_URL)).text();
-  await page.addScriptTag({ content: axeSource });
+  // inject axe from CDN
+  // prefer local axe-core if available (installed via npm), otherwise fall back to CDN
+  try {
+    const axePath = require.resolve('axe-core/axe.min.js');
+    const content = fs.readFileSync(axePath, 'utf8');
+    await page.addScriptTag({ content });
+  } catch (err) {
+    console.warn('Local axe-core not found; falling back to CDN');
+    await page.addScriptTag({ url: AXE_URL });
+  }
 
   // run axe with color-contrast rule only
   const result = await page.evaluate(async () => {
@@ -60,17 +67,6 @@ async function main() {
   process.exit(0);
 }
 
-// Node fetch shim for older Node versions in CI
-async function fetch(url) {
-  if (globalThis.fetch) return globalThis.fetch(url);
-  const https = require('https');
-  return new Promise((resolve, reject) => {
-    https.get(url, (res) => {
-      let data = '';
-      res.on('data', d => data += d);
-      res.on('end', () => resolve({ text: async () => data }));
-    }).on('error', reject);
-  });
-}
+// End
 
 main();

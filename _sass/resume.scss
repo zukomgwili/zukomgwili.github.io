@@ -1,24 +1,19 @@
 @media print {
   nav {
     display: none;
-    ul {
-      list-style: none;
-      padding: 0;
-    }
+  }
+}
 
-    .school {
-      margin: 1rem 0;
+#resume {
+  padding: 1rem;
 
-      .education-list {
-        display: grid;
-        grid-template-columns: 180px 1fr;
-        gap: 0.25rem 1rem;
-        margin: 0;
+  .section-title {
+    font-size: 2rem;
+    background: aliceblue;
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
 
-        dt { font-weight: 700; }
-        dd { margin: 0 0 0.5rem 0; }
-      }
-    }
   #work-history {
     .work-history-item {
       break-after: left;
@@ -66,17 +61,25 @@
   #education {
     ul {
       list-style: none;
+      padding: 0;
     }
 
     .school {
-      margin: 1rem;
+      margin: 1rem 0;
 
-      td:first-of-type {
-        font-weight: bold;
-      }
+      .education-list {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        gap: 0.25rem 1rem;
+        margin: 0;
 
-      td:last-of-type {
-        padding: 0 0 0 1rem;
+        dt {
+          font-weight: 700;
+        }
+
+        dd {
+          margin: 0 0 0.5rem 0;
+        }
       }
     }
   }

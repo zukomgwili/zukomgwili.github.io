@@ -26,9 +26,10 @@ missing=0
 
 for src in "$WORK_SRC"/*.md; do
   [[ -f "$src" ]] || continue
-  company=$(awk '/^company_name:/{sub(/^company_name:\s*/,"",$0); print $0; exit}' "$src" | sed 's/^\s*//;s/\s*$//')
-  title=$(awk '/^job_title:/{sub(/^job_title:\s*/,"",$0); print $0; exit}' "$src" | sed 's/^\s*//;s/\s*$//')
-  start=$(awk '/^start_date:/{sub(/^start_date:\s*/,"",$0); print $0; exit}' "$src" | sed 's/^\s*//;s/\s*$//')
+  # Use POSIX [[:space:]] to trim whitespace reliably on macOS (avoid \s which isn't POSIX)
+  company=$(awk '/^company_name:/{sub(/^company_name:[[:space:]]*/,"",$0); print $0; exit}' "$src" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+  title=$(awk '/^job_title:/{sub(/^job_title:[[:space:]]*/,"",$0); print $0; exit}' "$src" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+  start=$(awk '/^start_date:/{sub(/^start_date:[[:space:]]*/,"",$0); print $0; exit}' "$src" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
 
   name_ok=true
   title_ok=true

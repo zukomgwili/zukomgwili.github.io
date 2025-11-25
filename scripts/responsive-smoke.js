@@ -19,10 +19,41 @@ const VIEWPORTS = [
     for (const pagePath of PAGES) {
       const page = await context.newPage();
       await page.setViewportSize({width: vp.width, height: vp.height});
-      const target = new URL(pagePath, host).href;
+      // Build candidate URLs (try /path/, /path/index.html, /path.html)
+      const candidates = [];
+      const base = pagePath;
+      candidates.push(new URL(base, host).href);
+      if (base.endsWith('/')) {
+        candidates.push(new URL(base + 'index.html', host).href);
+        candidates.push(new URL(base.slice(0, -1) + '.html', host).href);
+      } else if (base.endsWith('.html')) {
+        const alt = base.replace(/\.html$/, '/');
+        candidates.push(new URL(alt, host).href);
+      } else {
+        candidates.push(new URL(base + '.html', host).href);
+        candidates.push(new URL(base + '/', host).href);
+      }
+
+      let target = candidates[0];
+      // try candidates until one succeeds
+      let resp = null;
+      let chosen = null;
+      for (const c of candidates) {
+        try {
+          resp = await page.goto(c, { waitUntil: 'networkidle', timeout: 5000 });
+          if (resp && resp.status() < 400) { chosen = c; break; }
+        } catch (err) {
+          // ignore, try next candidate
+        }
+      }
+      if (chosen) target = chosen;
+      console.log(`[CHECK] ${vp.name} ${target}`);
       console.log(`[CHECK] ${vp.name} ${target}`);
       try {
-        const resp = await page.goto(target, { waitUntil: 'networkidle' });
+        // resp will already be set from candidate loop, if chosen
+        if (!resp) {
+          resp = await page.goto(target, { waitUntil: 'networkidle' });
+        }
         if (!resp || resp.status() >= 400) {
           console.error(`ERROR: ${target} returned ${resp ? resp.status() : 'no response'}`);
           anyError = true;
