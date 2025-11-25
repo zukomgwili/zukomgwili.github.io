@@ -29,19 +29,53 @@ jobs:
           chmod +x scripts/check-third-party-scripts.sh || true
           scripts/check-third-party-scripts.sh _site
 
+  pr-compliance:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check PR compliance (require constitution mention)
+        run: |
+          chmod +x scripts/check-pr-compliance.sh || true
+          scripts/check-pr-compliance.sh
+
   # Placeholder link-check and a11y jobs — implementers should choose tools and adjust config
   link-check:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Link checker (placeholder)
-        run: echo "Configure htmlproofer or other link-checker here to validate _site"
+      - name: Run HTMLProofer (link-check)
+        run: |
+          bundle exec htmlproofer _site --assume_extension --url_ignore '/#' || true
+
+  lighthouse:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Lighthouse CI (collect report)
+        uses: treosh/lighthouse-ci-action@v9
+        with:
+          urls: |
+            file://_site/index.html
+            file://_site/2021-08-14-bananas.html
+          uploadArtifacts: true
+          output: json
+      - name: Upload Lighthouse artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: .lighthouseci/
 
   a11y-check:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Accessibility check (placeholder)
-        run: echo "Add Pa11y/axe-runner job here; ensure page list is limited to changed pages"
+      - name: Accessibility check (pa11y)
+        uses: ahoffman/pa11y-action@v3
+        with:
+          urls: |
+            http://127.0.0.1:4000/
+            http://127.0.0.1:4000/about/

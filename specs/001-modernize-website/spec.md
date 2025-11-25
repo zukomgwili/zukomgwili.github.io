@@ -133,7 +133,7 @@ As a reader or potential employer, I want clearer organization of blog posts and
 - **SC-001**: Homepage and key pages build cleanly in CI and pass link-checker with 0 broken internal links and no unexpected 4xx/5xx responses from required external links.
 - **SC-002**: 95%+ of updated pages pass automated accessibility checks aimed at WCAG 2.1 AA (where automated checks apply) and all high-risk issues are remediated in manual review.
 - **SC-003**: Contact & About information is discoverable within three clicks from the homepage on mobile and desktop in 100% of tested scenarios.
- - **SC-004**: Visual improvements should not regress performance: Core pages should maintain reasonable perceived performance (no >20% regression vs current baseline using standard web performance measurements) — and keep the site lightweight.
+ - **SC-004**: Visual improvements should not regress performance. Measured using Lighthouse Performance score on two canonical pages (site index / and one representative post) — no more than a 20% relative regression in the Lighthouse Performance score vs the pre-change baseline. The baseline will be captured by the CI Lighthouse job on the first PR of this feature branch and used as the comparison point for subsequent PRs.
 
 ## Constitution Compliance *(mandatory)*
 

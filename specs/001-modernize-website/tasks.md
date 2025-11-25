@@ -11,7 +11,7 @@ description: "Task list for feature implementation: Modernize website look & con
 **Purpose**: Project initialization and baseline that enables safe, incremental UI changes.
 
 - [x] T001 [P] Create a canonical, version-controlled resume at `assets/resume.pdf` (add placeholder PDF and README comment) — file path: `/assets/resume.pdf`
-- [ ] T002 [P] Create a dedicated About page content file at `/about.md` with front-matter (layout: default, title: About) and an initial short bio placeholder — file path: `/about.md`
+- [ ] T002 [P] Create the About page scaffold at `/about.md` (front-matter and placeholder content) — file path: `/about.md` (T011 will add finalized content).
 - [ ] T003 [P] Add a CI workflow file that enforces the constitution gates: full site build, link-check, and automated accessibility checks. Create `.github/workflows/site-checks.yml` with placeholder jobs for `build`, `link-check`, and `a11y`.
 - [ ] T004 [P] Add design tokens and initial SCSS variables for colors and typography in `_sass/_tokens.scss` and import them in `assets/css/styles.scss` (or primary stylesheet) — file paths: `/_sass/_tokens.scss`, `/assets/css/styles.scss`
 - [ ] T005 [P] Add a small developer guide to update and replace `assets/resume.pdf` in `specs/001-modernize-website/quickstart.md` (already present) and ensure it references the recommended path.
@@ -27,7 +27,7 @@ description: "Task list for feature implementation: Modernize website look & con
 - [ ] T006 Ensure header/footer include updated navigation placeholders & accessibility improvements (skip-links, semantic nav landmarks) — edit files `_includes/header.html` and `_includes/footer.html` and add `aria` attributes where appropriate.
 - [ ] T007 Update `_layouts/default.html` and `_layouts/post.html` to reference the new SCSS tokens and provide default typography and spacing blocks.
 - [ ] T008 Update `resume.html` (site root) and/or `_layouts/resume.html` to link to `/assets/resume.pdf` and show a clear Download resume link/button (no external embeds) — file path: `/resume.html` or `_layouts/resume.html`.
-- [ ] T009 [P] Implement link-check configuration and a11y configuration used by CI (e.g., `.github/ci/link-check-config.yml`, `.github/ci/a11y-config.yml`) and a small sanity test runner script `scripts/ci-checks.sh` to be called from the workflow.
+ - [x] T009 [P] Implement link-check configuration and a11y configuration used by CI (e.g., `.github/ci/link-check-config.yml`, `.github/ci/a11y-config.yml`) and a small sanity test runner script `scripts/ci-checks.sh` to be called from the workflow.
 - [ ] T010 [P] Add tests or scripts to verify that updated front-matter fields don't break the build (example: `scripts/validate-front-matter.sh`) — ensure this runs in CI and emits human-readable errors.
 
 ---
@@ -82,6 +82,8 @@ description: "Task list for feature implementation: Modernize website look & con
 - [ ] T025 [P] Finalize CI: ensure the `.github/workflows/site-checks.yml` workflow runs on PRs and branch merges; add human-friendly output and remediation instructions for failures (file path: `.github/workflows/site-checks.yml`).
  - [ ] T025 [P] Finalize CI: ensure the `.github/workflows/site-checks.yml` workflow runs on PRs and branch merges; add human-friendly output and remediation instructions for failures (file path: `.github/workflows/site-checks.yml`).
  - [x] T026 [P] Add a privacy enforcement script and CI step to detect third-party tracking scripts; create `scripts/check-third-party-scripts.sh` and add job step to `.github/workflows/site-checks.yml`.
+ - [x] T027 [P] Add PR compliance enforcement: `scripts/check-pr-compliance.sh` and workflow job to fail PRs missing a constitution compliance note.
+ - [x] T028 [P] Add Lighthouse CI job to collect Lighthouse reports for baseline and upload as artifacts (workflow updated to include lighthouse job).
 
 ---
 
