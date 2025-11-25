@@ -63,6 +63,22 @@ ls -l visual-snapshots
 
 This step is optional (keeps CI faster when disabled), but can be valuable when reviewing visual changes. The CI job `visual-sampling` implements this during PR checks and saves artifacts for reviewer download.
 
+7) Normalizing post front matter (T020)
+
+Use the `scripts/normalize-front-matter.sh` helper to find posts that are missing `excerpt` or `date` front-matter. By default the script runs in dry-run mode and prints a summary of problems.
+
+Examples:
+
+```bash
+# Dry-run: report posts missing fields (exit non-zero when problems found)
+./scripts/normalize-front-matter.sh --dry-run
+
+# Apply safe fallback values (date inferred from filename; excerpt taken from first paragraph)
+./scripts/normalize-front-matter.sh --apply
+```
+
+Tip: Run the check in CI as a soft-warning (does not fail the PR, but makes reviewers aware), or use `--apply` locally and inspect changes before committing.
+
 5) CI expectations
 
 - New PRs should pass the site build, link checks and automated accessibility checks before merging.

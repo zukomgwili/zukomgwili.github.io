@@ -177,3 +177,15 @@ jobs:
         with:
           name: visual-snapshots
           path: visual-snapshots
+
+  normalize-front-matter:
+    needs: build
+    runs-on: ubuntu-latest
+    # soft-warning: detect missing front-matter but don't fail the PR automatically
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate (normalize) front-matter — dry-run
+        run: |
+          chmod +x scripts/normalize-front-matter.sh || true
+          ./scripts/normalize-front-matter.sh --dry-run || true
