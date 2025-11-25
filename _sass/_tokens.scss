@@ -10,6 +10,26 @@ $font-family-sans: 'Montserrat', 'Open Sans', 'Roboto', system-ui, -apple-system
 $font-size-base: 16px;
 $line-height-base: 1.5;
 
+// Typographic scale (responsive tokens)
+$h1-min: 1.5rem;
+$h1-max: 2.2rem;
+$h2-min: 1.25rem;
+$h2-max: 1.5rem;
+$h3-size: 1.125rem;
+$lead-size: 1.125rem;
+
+// Slightly tighter line-height for headings
+$line-height-heading: 1.15;
+
+// Breakpoints (mobile-first)
+$breakpoint-sm: 480px; // small phones
+$breakpoint-md: 768px; // tablets
+$breakpoint-lg: 1024px; // laptops
+
+// Content width rules
+$container-max-width: 66rem; // main readable width wrapper
+$post-max-width: 48rem; // content width for posts/articles
+
 // Spacing scale
 $space-xxs: 4px;
 $space-xs: 8px;
@@ -22,9 +42,10 @@ $focus-ring: 3px solid rgba(59, 130, 246, 0.6);
 
 // Exported helper mixins
 @mixin visually-hidden {
-  position: absolute !important;
-  height: 1px; width: 1px;
-  overflow: hidden;
-  clip: rect(1px, 1px, 1px, 1px);
-  white-space: nowrap;
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    white-space: nowrap;
 }

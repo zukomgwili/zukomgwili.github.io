@@ -54,7 +54,7 @@ description: "Task list for feature implementation: Modernize website look & con
 
 **Independent Test**: Visual review + CI-based checks show updated typography and responsive layout with no accessibility regressions in automated checks.
 
-- [ ] T015 [US2] Implement typography tokens in `_sass/_tokens.scss` and update `assets/css/styles.scss` to use the new tokens (fonts, sizes, line-heights, responsive breakpoints). Ensure changes are incremental and isolated to CSS modules.
+ - [x] T015 [US2] Implement typography tokens in `_sass/_tokens.scss` and update `assets/css/styles.scss` to use the new tokens (fonts, sizes, line-heights, responsive breakpoints). Ensure changes are incremental and isolated to CSS modules.
  - [x] T016 [US2] Update `_layouts/default.html` and `_layouts/post.html` to adopt new spacing and structure (headings size, article width, readable line length). Add a `.a11y-skip` skiplink and visible focus styles.
 - [ ] T017 [US2] Add mobile-first responsive tweaks and test on common viewport widths (mobile / tablet / desktop); add a CI job for responsiveness smoke-tests (e.g., screenshot checkpoints or CSS property assertions in a script).
 - [ ] T018 [US2] Add a small visual sampling step to CI (manual/automated screenshot comparison for home, post, about, resume pages) — make this optional but documented in `specs/001-modernize-website/quickstart.md`.

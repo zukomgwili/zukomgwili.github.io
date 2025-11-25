@@ -1,8 +1,8 @@
 @import "tokens";
 @import "resume";
 
-html,
-body {
+/* Base document typography */
+html, body {
   font-family: $font-family-sans;
   font-size: $font-size-base;
   line-height: $line-height-base;
@@ -10,11 +10,9 @@ body {
   background: $bg;
 }
 
-.active-link {
-  color: $accent-color;
-}
+.active-link { color: $accent-color; }
 
-/* visible focus styles for accessibility (skip-link and other interactive elements) */
+/* Skip link styling for keyboard users */
 .skip-link, .a11y-skip {
   position: absolute;
   top: -60px;
@@ -32,133 +30,36 @@ body {
   top: 12px;
   opacity: 1;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.25);
 }
 
-/* header / footer basics */
-.site-header {
-  border-bottom: 1px solid lighten($bg, 6%);
-  padding: $space-sm $space-md;
-}
+/* Header / footer basics */
+.site-header { border-bottom: 1px solid lighten($bg,6%); padding: $space-sm $space-md; }
+.site-branding { display:flex; flex-direction:column; gap: $space-xs; margin-bottom: $space-sm; }
+.site-title { font-weight:700; color: $brand-color; text-decoration:none; }
+.site-description { color: $muted; font-size: 0.9rem; }
+.site-footer { border-top: 1px solid lighten($bg,6%); padding: $space-md; color: $muted; font-size:0.9rem; background: transparent; }
+.site-footer .wrap { max-width: $container-max-width; margin:0 auto; }
 
-.site-branding {
-  display: flex;
-  flex-direction: column;
-  gap: $space-xs;
-  margin-bottom: $space-sm;
-}
+/* Layout containers */
+.wrap { max-width: $container-max-width; margin: 0 auto; padding: 0 $space-md; }
+.content-wrapper { padding: $space-lg 0; }
 
-.site-title {
-  font-weight: 700;
-  color: $brand-color;
-  text-decoration: none;
-}
+/* Articles/posts */
+.post { max-width: $post-max-width; margin: 0 auto; padding: $space-md 0; }
+.post-header { margin-bottom: $space-md; }
+.post-title { font-size: clamp($h1-min, 2.5vw, $h1-max); line-height: $line-height-heading; margin: 0 0 $space-sm 0; }
+.post-meta { color: $muted; font-size: 0.9rem; margin: 0 0 $space-md 0; }
+.post-content img { max-width: 100%; height: auto; }
 
-.site-description {
-  color: $muted;
-  font-size: 0.9rem;
-}
+/* Readability and typographic rhythm */
+.content-wrapper, .post-content { max-width: 65ch; margin-left:auto; margin-right:auto; }
+h1, .post-title { font-size: clamp($h1-min, 2.5vw, $h1-max); line-height: $line-height-heading; margin-bottom: $space-sm; }
+h2 { font-size: clamp($h2-min, 2vw, $h2-max); line-height: $line-height-heading; margin-top: $space-md; margin-bottom: $space-sm; }
+p { margin-bottom: $space-md; }
 
-.site-footer {
-  border-top: 1px solid lighten($bg, 6%);
-  padding: $space-md;
-  color: $muted;
-  font-size: 0.9rem;
-  background: transparent;
-}
-
-.site-footer .wrap {
-  max-width: 66rem;
-  margin: 0 auto;
-}
-
-/* page container & content */
-.wrap {
-  max-width: 66rem;
-  margin: 0 auto;
-  padding: 0 $space-md;
-}
-
-.content-wrapper {
-  padding: $space-lg 0;
-}
-
-/* article / post styles */
-.post {
-  max-width: 48rem;
-  margin: 0 auto;
-  padding: $space-md 0;
-}
-
-.post-header {
-  margin-bottom: $space-md;
-}
-
-.post-title {
-  font-size: 2rem;
-  line-height: 1.15;
-  margin: 0 0 $space-sm 0;
-}
-
-.post-meta {
-  color: $muted;
-  font-size: 0.9rem;
-  margin: 0 0 $space-md 0;
-}
-
-.post-content img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* readability tweaks: headings, line-length and spacing */
-/* ensure comfortable measure for paragraphs */
-.content-wrapper,
-.post-content {
-  max-width: 65ch;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-h1, .post-title {
-  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
-  line-height: 1.08;
-  margin-bottom: $space-sm;
-}
-
-h2 {
-  font-size: clamp(1.25rem, 2vw, 1.5rem);
-  line-height: 1.15;
-  margin-top: $space-md;
-  margin-bottom: $space-sm;
-}
-
-p { 
-  margin-bottom: $space-md;
-}
-
-/* resume page layout / actions */
-.resume-actions {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: $space-sm;
-}
-
-.btn {
-  display: inline-block;
-  padding: 8px 12px;
-  border-radius: 6px;
-  text-decoration: none;
-  color: white;
-  background: $brand-color;
-}
-
-.btn:focus,
-.btn:active,
-.btn:hover {
-  box-shadow: $focus-ring;
-}
-
-.btn-download {
-  background: $accent-color;
-}
+/* Resume page actions */
+.resume-actions { display:flex; justify-content:flex-end; margin-bottom: $space-sm; }
+.btn { display:inline-block; padding: 8px 12px; border-radius:6px; text-decoration:none; color: white; background: $brand-color; }
+.btn:focus, .btn:active, .btn:hover { box-shadow: $focus-ring; }
+.btn-download { background: $accent-color; }
