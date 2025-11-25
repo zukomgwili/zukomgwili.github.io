@@ -2,12 +2,27 @@
 layout: default
 ---
 <article class="post">
-	<header class="post-header">
-		<h1 class="post-title">{{ page.title }}</h1>
-		<p class="post-meta">{{ page.date | date: "%B %-d, %Y" }}{% if page.author %} — <span class="author">{{ page.author }}</span>{% endif %}</p>
-	</header>
+    <header class="post-header">
+        <h1 class="post-title">{{ page.title }}</h1>
+        <p class="post-meta">{{ page.date | date: "%B %-d, %Y" }}{% if page.author %} — <span class="author">{{ page.author }}</span>{% endif %}</p>
+        {%- comment -%}
+        Show a short excerpt/lead when available. Jekyll provides `page.excerpt` (first paragraph)
+        or authors can provide `excerpt` in front matter. Fall back to nothing when absent.
+        {%- endcomment -%}
+        {% if page.excerpt %}
+        <p class="post-excerpt">{{ page.excerpt | strip_html | markdownify }}</p>
+        {% endif %}
+        {% assign the_tags = page.tags | default: page.categories %}
+        {% if the_tags and the_tags.size > 0 %}
+        <p class="post-tags">Tags:
+            {% for tag in the_tags %}
+            <a href="{{ '/tags/' | append: tag | slugify | append: '/' }}" rel="tag">{{ tag }}</a>{% if forloop.last == false %}, {% endif %}
+            {% endfor %}
+        </p>
+        {% endif %}
+    </header>
 
-	<div class="post-content">
-		{{ content }}
-	</div>
+    <div class="post-content">
+        {{ content }}
+    </div>
 </article>
