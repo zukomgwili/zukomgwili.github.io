@@ -10,7 +10,7 @@ description: "Task list for feature implementation: Modernize website look & con
 
 **Purpose**: Project initialization and baseline that enables safe, incremental UI changes.
 
-- [ ] T001 [P] Create a canonical, version-controlled resume at `assets/resume.pdf` (add placeholder PDF and README comment) — file path: `/assets/resume.pdf`
+- [x] T001 [P] Create a canonical, version-controlled resume at `assets/resume.pdf` (add placeholder PDF and README comment) — file path: `/assets/resume.pdf`
 - [ ] T002 [P] Create a dedicated About page content file at `/about.md` with front-matter (layout: default, title: About) and an initial short bio placeholder — file path: `/about.md`
 - [ ] T003 [P] Add a CI workflow file that enforces the constitution gates: full site build, link-check, and automated accessibility checks. Create `.github/workflows/site-checks.yml` with placeholder jobs for `build`, `link-check`, and `a11y`.
 - [ ] T004 [P] Add design tokens and initial SCSS variables for colors and typography in `_sass/_tokens.scss` and import them in `assets/css/styles.scss` (or primary stylesheet) — file paths: `/_sass/_tokens.scss`, `/assets/css/styles.scss`
