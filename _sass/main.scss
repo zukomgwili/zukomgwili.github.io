@@ -1,8 +1,35 @@
+@import "tokens";
 @import "resume";
 
-body {
-  font-family: "Montserrat", "Open Sans", "Roboto", sans-serif;
+html, body {
+  font-family: $font-family-sans;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: $text-color;
+  background: $bg;
 }
+
 .active-link {
-  color: green;
+  color: $accent-color;
 }
+
+/* visible focus styles for accessibility (skip-link and other interactive elements) */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 16px;
+  background: $brand-color;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  z-index: 1000;
+  transition: top 0.15s ease-in-out, opacity 0.15s ease-in-out;
+  opacity: 0;
+}
+.skip-link:focus {
+  top: 12px;
+  opacity: 1;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.25);
+}
+

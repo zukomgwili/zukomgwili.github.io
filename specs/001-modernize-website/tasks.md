@@ -13,7 +13,7 @@ description: "Task list for feature implementation: Modernize website look & con
 - [x] T001 [P] Create a canonical, version-controlled resume at `assets/resume.pdf` (add placeholder PDF and README comment) — file path: `/assets/resume.pdf`
 - [x] T002 [P] Create the About page scaffold at `/about.md` (front-matter and placeholder content) — file path: `/about.md` (T011 will add finalized content).
 - [x] T003 [P] Add a CI workflow file that enforces the constitution gates: full site build, link-check, and automated accessibility checks. Create `.github/workflows/site-checks.yml` with placeholder jobs for `build`, `link-check`, and `a11y`.
-- [ ] T004 [P] Add design tokens and initial SCSS variables for colors and typography in `_sass/_tokens.scss` and import them in `assets/css/styles.scss` (or primary stylesheet) — file paths: `/_sass/_tokens.scss`, `/assets/css/styles.scss`
+ - [x] T004 [P] Add design tokens and initial SCSS variables for colors and typography in `_sass/_tokens.scss` and import them in `assets/css/styles.scss` (or primary stylesheet) — file paths: `/_sass/_tokens.scss`, `/assets/css/styles.scss`
 - [ ] T005 [P] Add a small developer guide to update and replace `assets/resume.pdf` in `specs/001-modernize-website/quickstart.md` (already present) and ensure it references the recommended path.
 
 ---
