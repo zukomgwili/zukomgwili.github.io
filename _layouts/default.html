@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
   <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{{ page.title }}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,7 +14,9 @@
 </head>
 
   <body class="site-body">
-  {% include header.html %}
+    <!-- keyboard skip link for immediate access to primary content -->
+    <a class="a11y-skip" href="#main-content">Skip to main content</a>
+    {% include header.html %}
 
   <main id="main-content" role="main">
     <div class="wrap content-wrapper">

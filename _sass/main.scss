@@ -15,9 +15,9 @@ body {
 }
 
 /* visible focus styles for accessibility (skip-link and other interactive elements) */
-.skip-link {
+.skip-link, .a11y-skip {
   position: absolute;
-  top: -40px;
+  top: -60px;
   left: 16px;
   background: $brand-color;
   color: white;
@@ -28,7 +28,7 @@ body {
   opacity: 0;
 }
 
-.skip-link:focus {
+.skip-link:focus, .a11y-skip:focus {
   top: 12px;
   opacity: 1;
   outline: none;
@@ -111,12 +111,39 @@ body {
   height: auto;
 }
 
+/* readability tweaks: headings, line-length and spacing */
+/* ensure comfortable measure for paragraphs */
+.content-wrapper,
+.post-content {
+  max-width: 65ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h1, .post-title {
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  line-height: 1.08;
+  margin-bottom: $space-sm;
+}
+
+h2 {
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  line-height: 1.15;
+  margin-top: $space-md;
+  margin-bottom: $space-sm;
+}
+
+p { 
+  margin-bottom: $space-md;
+}
+
 /* resume page layout / actions */
 .resume-actions {
   display: flex;
   justify-content: flex-end;
   margin-bottom: $space-sm;
 }
+
 .btn {
   display: inline-block;
   padding: 8px 12px;
@@ -125,11 +152,13 @@ body {
   color: white;
   background: $brand-color;
 }
+
 .btn:focus,
 .btn:active,
 .btn:hover {
   box-shadow: $focus-ring;
 }
+
 .btn-download {
   background: $accent-color;
 }
