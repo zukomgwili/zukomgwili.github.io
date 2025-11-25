@@ -89,20 +89,47 @@ body {
   margin: 0 auto;
   padding: $space-md 0;
 }
+
 .post-header {
   margin-bottom: $space-md;
 }
+
 .post-title {
   font-size: 2rem;
   line-height: 1.15;
   margin: 0 0 $space-sm 0;
 }
+
 .post-meta {
   color: $muted;
   font-size: 0.9rem;
   margin: 0 0 $space-md 0;
 }
+
 .post-content img {
   max-width: 100%;
   height: auto;
+}
+
+/* resume page layout / actions */
+.resume-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: $space-sm;
+}
+.btn {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: white;
+  background: $brand-color;
+}
+.btn:focus,
+.btn:active,
+.btn:hover {
+  box-shadow: $focus-ring;
+}
+.btn-download {
+  background: $accent-color;
 }
