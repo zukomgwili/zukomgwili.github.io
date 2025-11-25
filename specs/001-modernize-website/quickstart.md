@@ -98,6 +98,8 @@ The repository now includes two additional checks to help prevent common accessi
 # Start a local server and run the Playwright contrast checker against core pages
 bundle exec jekyll build --destination _site
 python3 -m http.server 4000 -d _site &
+# ensure node deps are installed (Playwright + axe-core)
+npm ci || npm install
 node scripts/contrast-check.js http://127.0.0.1:4000
 ```
 
