@@ -54,3 +54,4 @@ collections:
   work_history:
   education:
   stories:
+    output: true
