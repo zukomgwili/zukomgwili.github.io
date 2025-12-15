@@ -117,7 +117,7 @@ jobs:
           urls: |
             http://127.0.0.1:4000/
             http://127.0.0.1:4000/about.html
-          uploadArtifacts: true
+          uploadArtifacts: false
 
   a11y-check:
     needs: build
