@@ -1,29 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{{ page.title }}</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Open+Sans&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" type="text/css" href="/assets/css/styles.css" />
-</head>
-
-<body class="site-body">
-  <!-- keyboard skip link for immediate access to primary content -->
-  <a class="a11y-skip" href="#main-content">Skip to main content</a>
-  {% include header.html %}
-
-  <main id="main-content" role="main">
-    <div class="wrap content-wrapper">
-      {{ content }}
-    </div>
-  </main>
-  {% include footer.html %}
-</body>
-
+  <head>
+    <meta charset="UTF-8" />
+    <title>{{ page.title }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" data-proofer-ignore />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin data-proofer-ignore />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="/assets/css/styles.css" />
+  </head>
+  <body>
+    {% include navigation.html %} {{ content }}
+  </body>
 </html>
