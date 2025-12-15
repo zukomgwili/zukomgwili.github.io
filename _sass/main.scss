@@ -1,8 +1,121 @@
+@import "tokens";
 @import "resume";
 
+/* Base document typography */
+html,
 body {
-  font-family: "Montserrat", "Open Sans", "Roboto", sans-serif;
+  font-family: $font-family-sans;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: $text-color;
+  background: $bg;
 }
+
 .active-link {
   color: #1e874f;
+}
+
+.post-excerpt {
+  color: $text-color;
+  font-size: 1rem;
+  margin: 0 0 $space-md 0;
+  opacity: 0.95;
+}
+
+.post-tags {
+  color: $muted;
+  font-size: 0.9rem;
+  margin: 0 0 $space-sm 0;
+}
+
+.post-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Readability and typographic rhythm */
+.content-wrapper,
+.post-content {
+  max-width: 65ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h1,
+.post-title {
+  font-size: clamp($h1-min, 2.5vw, $h1-max);
+  line-height: $line-height-heading;
+  margin-bottom: $space-sm;
+}
+
+h2 {
+  font-size: clamp($h2-min, 2vw, $h2-max);
+  line-height: $line-height-heading;
+  margin-top: $space-md;
+  margin-bottom: $space-sm;
+}
+
+p {
+  margin-bottom: $space-md;
+}
+
+/* Resume page actions */
+.resume-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: $space-sm;
+}
+
+.btn {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: white;
+  background: $brand-color;
+}
+
+.btn:focus,
+.btn:active,
+.btn:hover {
+  box-shadow: $focus-ring;
+}
+
+.btn-download {
+  background: $accent-color;
+}
+
+/* Responsive layout adjustments (mobile-first) */
+@media (min-width: $breakpoint-md) {
+  .site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .site-branding {
+    flex-direction: row;
+    align-items: center;
+    gap: $space-md;
+    margin-bottom: 0;
+  }
+
+  nav[role="navigation"] ul {
+    display: flex;
+    gap: $space-md;
+  }
+
+  .resume-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (min-width: $breakpoint-lg) {
+  .content-wrapper {
+    padding: $space-lg 0 $space-lg 0;
+  }
+
+  .post {
+    padding: $space-lg 0;
+  }
 }

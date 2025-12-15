@@ -15,14 +15,45 @@
   }
 
   #work-history {
-    #work-history-item {
+    .work-history-item {
       break-after: left;
       list-style: none;
-      td:first-of-type{
-        font-weight: bold;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+
+      .work-history-header {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        margin-bottom: 0.75rem;
       }
-      td:last-of-type{
-        padding: 0 0 0 1rem;
+
+      .work-company {
+        margin: 0;
+        font-size: 1.15rem;
+        font-weight: 700;
+      }
+
+      .work-meta {
+        color: rgba(0, 0, 0, 0.65);
+        font-size: 0.95rem;
+        display: flex;
+        gap: 0.75rem;
+        align-items: baseline;
+      }
+
+      .work-title {
+        font-weight: 600;
+      }
+
+      .work-dates {
+        color: rgba(0, 0, 0, 0.6);
+        font-size: 0.9rem;
+      }
+
+      .work-body {
+        margin-top: 0.5rem;
       }
     }
   }
@@ -30,15 +61,25 @@
   #education {
     ul {
       list-style: none;
+      padding: 0;
     }
 
     .school {
-      margin: 1rem;
-      td:first-of-type{
-        font-weight: bold;
-      }
-      td:last-of-type{
-        padding: 0 0 0 1rem;
+      margin: 1rem 0;
+
+      .education-list {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        gap: 0.25rem 1rem;
+        margin: 0;
+
+        dt {
+          font-weight: 700;
+        }
+
+        dd {
+          margin: 0 0 0.5rem 0;
+        }
       }
     }
   }

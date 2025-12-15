@@ -1,7 +1,11 @@
-<nav>
+<nav role="navigation" aria-label="Main navigation">
+
   <ul>
     {% for item in site.data.navigation %}
-    <li><a href="{{ item.link }}" {% if page.url == item.link %}class="active-link"{% endif %}>{{item.name}}</a></li>
+    <li>
+      <a href="{{ item.link }}" {% if page.url==item.link %}class="active-link" aria-current="page" {% endif %}>{{
+        item.name }}</a>
+    </li>
     {% endfor %}
   </ul>
 </nav>

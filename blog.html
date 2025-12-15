@@ -4,9 +4,17 @@ title: Blog
 ---
 <ul>
     {% for post in site.posts %}
-    <li>
-        <h1><a href="{{post.url}}">{{post.title}}</a></h1>
-        {{ post.excerpt }}
+    <li class="post-teaser">
+        <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+        <p class="post-meta">{{ post.date | date: "%B %-d, %Y" }}</p>
+        {% if post.excerpt %}
+        <p class="post-excerpt">{{ post.excerpt | strip_html | markdownify }}</p>
+        {% endif %}
+        {% assign t = post.tags | default: post.categories %}
+        {% if t and t.size > 0 %}
+        <p class="post-tags">Tags: {% for tag in t %}<a href="{{ '/tags/' | append: tag | slugify | append: '/' }}"
+                rel="tag">{{ tag }}</a>{% if forloop.last == false %}, {% endif %}{% endfor %}</p>
+        {% endif %}
     </li>
     {% endfor %}
 </ul>

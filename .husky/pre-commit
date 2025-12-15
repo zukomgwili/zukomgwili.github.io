@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Husky pre-commit hook — runs staged image-alt checker
+
+./scripts/check-image-alts-staged.sh
