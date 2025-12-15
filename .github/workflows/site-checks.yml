@@ -15,9 +15,10 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.x'
+          ruby-version: '3.3'
+          bundler-cache: true
       - name: Install Bundler deps
-        run: bundle config set --local path 'vendor/bundle' && bundle install --jobs 4 --retry 3
+        run: bundle install --jobs 4 --retry 3
       - name: Build site
         run: bundle exec jekyll build --destination _site
 
