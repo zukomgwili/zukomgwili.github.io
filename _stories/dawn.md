@@ -1,5 +1,6 @@
 ---
 layout: story
+title: Dawn
 author: Zuko Mgwili
 ---
 
