@@ -118,6 +118,7 @@ jobs:
             http://127.0.0.1:4000/
             http://127.0.0.1:4000/about.html
           uploadArtifacts: true
+          artifactName: lighthouse_results
       - name: Upload Lighthouse artifact
         uses: actions/upload-artifact@v4
         if: always()
