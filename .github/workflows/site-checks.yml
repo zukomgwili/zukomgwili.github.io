@@ -284,3 +284,101 @@ jobs:
             _site || true
             # allow reviewers to download the compact summary
             .
+
+  pr-comment-summary:
+    needs: [build, privacy-check, discoverability, validate-front-matter, pr-compliance, link-check, lighthouse, a11y-check, image-alt-check, color-contrast-check, responsive-check, visual-sampling, resume-format, normalize-front-matter]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && always()
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Post CI summary to PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const results = {
+              'build': '${{ needs.build.result }}',
+              'privacy-check': '${{ needs.privacy-check.result }}',
+              'discoverability': '${{ needs.discoverability.result }}',
+              'validate-front-matter': '${{ needs.validate-front-matter.result }}',
+              'pr-compliance': '${{ needs.pr-compliance.result }}',
+              'link-check': '${{ needs.link-check.result }}',
+              'lighthouse': '${{ needs.lighthouse.result }}',
+              'a11y-check': '${{ needs.a11y-check.result }}',
+              'image-alt-check': '${{ needs.image-alt-check.result }}',
+              'color-contrast-check': '${{ needs.color-contrast-check.result }}',
+              'responsive-check': '${{ needs.responsive-check.result }}',
+              'visual-sampling': '${{ needs.visual-sampling.result }}',
+              'resume-format': '${{ needs.resume-format.result }}',
+              'normalize-front-matter': '${{ needs.normalize-front-matter.result }}'
+            };
+            
+            const passed = [];
+            const failed = [];
+            const skipped = [];
+            
+            for (const [job, result] of Object.entries(results)) {
+              if (result === 'success') passed.push(job);
+              else if (result === 'failure') failed.push(job);
+              else if (result === 'skipped') skipped.push(job);
+            }
+            
+            let comment = '## 🔍 CI Checks Summary\n\n';
+            
+            if (failed.length === 0) {
+              comment += '✅ **All checks passed!** Ready for review.\n\n';
+            } else {
+              comment += `❌ **${failed.length} check(s) failed** — see details below and remediation hints.\n\n`;
+            }
+            
+            comment += '### Results\n\n';
+            comment += `- ✅ Passed: ${passed.length}\n`;
+            comment += `- ❌ Failed: ${failed.length}\n`;
+            if (skipped.length > 0) comment += `- ⏭️ Skipped: ${skipped.length}\n`;
+            
+            if (failed.length > 0) {
+              comment += '\n### Failed Checks\n\n';
+              failed.forEach(job => {
+                comment += `- ❌ **${job}**\n`;
+              });
+              
+              comment += '\n### 🛠️ Remediation Guide\n\n';
+              comment += '<details><summary>Click to expand troubleshooting steps</summary>\n\n';
+              comment += '#### Build failures\n';
+              comment += '```bash\n';
+              comment += 'bundle install\n';
+              comment += 'bundle exec jekyll build --destination _site\n';
+              comment += '```\n\n';
+              comment += '#### Discoverability\n';
+              comment += '```bash\n';
+              comment += './scripts/check-discoverability.sh _site\n';
+              comment += '```\n\n';
+              comment += '#### Front-matter validation\n';
+              comment += '```bash\n';
+              comment += './scripts/validate-front-matter.sh .\n';
+              comment += '```\n\n';
+              comment += '#### Accessibility checks\n';
+              comment += '```bash\n';
+              comment += '# Image alt attributes\n';
+              comment += './scripts/check-image-alts.sh _site\n\n';
+              comment += '# Color contrast (requires local server)\n';
+              comment += 'python3 -m http.server 4000 -d _site &\n';
+              comment += 'npm ci\n';
+              comment += 'node scripts/contrast-check.js http://127.0.0.1:4000\n';
+              comment += '```\n\n';
+              comment += '#### Link checking\n';
+              comment += '```bash\n';
+              comment += 'bundle exec htmlproofer _site --assume_extension\n';
+              comment += '```\n\n';
+              comment += '📖 For more details, see [specs/001-modernize-website/quickstart.md](../blob/001-modernize-website/specs/001-modernize-website/quickstart.md)\n';
+              comment += '</details>\n\n';
+            }
+            
+            comment += `\n---\n*View [workflow run](${context.payload.repository.html_url}/actions/runs/${context.runId}) for detailed logs*`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
