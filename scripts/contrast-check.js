@@ -5,7 +5,7 @@ const fs = require('fs');
 const AXE_URL = 'https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.9.3/axe.min.js';
 
 async function runChecks(url) {
-  const browser = await chromium.launch();
+  const browser = await chromium.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
   const context = await browser.newContext();
   const page = await context.newPage();
   await page.goto(url, { waitUntil: 'networkidle' });
