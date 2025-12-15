@@ -1,0 +1,404 @@
+name: Site checks
+
+on:
+  pull_request:
+    branches: [ main, '001-modernize-website' ]
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+      - name: Install Bundler deps
+        run: bundle install --jobs 4 --retry 3
+      - name: Build site
+        run: bundle exec jekyll build --destination _site
+
+      - name: Upload built site as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: _site
+
+  privacy-check:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download built site
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: _site
+      - name: Run privacy enforcement check
+        run: |
+          chmod +x scripts/check-third-party-scripts.sh || true
+          scripts/check-third-party-scripts.sh _site
+
+  discoverability:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download built site
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: _site
+      - name: Run discoverability check script
+        run: |
+          chmod +x scripts/check-discoverability.sh || true
+          scripts/check-discoverability.sh _site
+
+  validate-front-matter:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate front-matter
+        run: |
+          chmod +x scripts/validate-front-matter.sh || true
+          ./scripts/validate-front-matter.sh .
+  pr-compliance:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check PR compliance (require constitution mention)
+        run: |
+          chmod +x scripts/check-pr-compliance.sh || true
+          scripts/check-pr-compliance.sh
+
+  # Placeholder link-check and a11y jobs — implementers should choose tools and adjust config
+  link-check:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+      - name: Download built site
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: _site
+      - name: Run HTMLProofer (link-check)
+        run: |
+          bundle exec htmlproofer _site --assume_extension --url_ignore '/#'
+
+  lighthouse:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download built site
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: _site
+      - name: Start static server
+        run: |
+          python3 -m http.server 4000 -d _site &
+          for i in {1..10}; do curl -sSf http://127.0.0.1:4000/ && break || sleep 1; done
+      - name: Run Lighthouse CI (collect report)
+        uses: treosh/lighthouse-ci-action@v9
+        with:
+          urls: |
+            http://127.0.0.1:4000/
+            http://127.0.0.1:4000/about.html
+          uploadArtifacts: true
+          artifactName: lighthouse_results
+      - name: Upload Lighthouse artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-report
+          path: .lighthouseci/
+
+  a11y-check:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download built site
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: _site
+      - name: Start temporary static server
+        run: |
+          python3 -m http.server 4000 -d _site &
+          # Wait for server to be ready
+          for i in {1..10}; do curl -sSf http://127.0.0.1:4000/ && break || sleep 1; done
+      - name: Run pa11y accessibility checks
+        env:
+          PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
+        run: |
+          cat > /tmp/pa11y-config.json << 'EOF'
+          {
+            "chromeLaunchConfig": {
+              "args": ["--no-sandbox", "--disable-setuid-sandbox"]
+            }
+          }
+          EOF
+          npx --yes pa11y --config /tmp/pa11y-config.json http://127.0.0.1:4000/ || exit 1
+          npx --yes pa11y --config /tmp/pa11y-config.json http://127.0.0.1:4000/about/ || exit 1
+
+  image-alt-check:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download built site
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: _site
+      - name: Scan for missing image alt attributes
+        run: |
+          chmod +x scripts/check-image-alts.sh || true
+          ./scripts/check-image-alts.sh _site
+
+  color-contrast-check:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download built site
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: _site
+      - name: Start static server
+        run: |
+          python3 -m http.server 4000 -d _site &
+          for i in {1..10}; do curl -sSf http://127.0.0.1:4000/ && break || sleep 1; done
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Run color-contrast checks (axe-core via Playwright)
+        run: |
+          node scripts/contrast-check.js http://127.0.0.1:4000
+
+  responsive-check:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download built site
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: _site
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Run responsive smoke tests
+        run: |
+          chmod +x scripts/responsive-smoke-tests.sh || true
+          ./scripts/responsive-smoke-tests.sh _site 4000
+
+  visual-sampling:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download built site
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: _site
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Run visual sampling
+        run: |
+          chmod +x scripts/visual-sample-tests.sh || true
+          ./scripts/visual-sample-tests.sh _site 4000 visual-snapshots
+      - name: Upload visual snapshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-snapshots
+          path: visual-snapshots
+
+  resume-format:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download built site
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: _site
+      - name: Validate resume formatting
+        run: |
+          chmod +x scripts/test-resume-format.sh || true
+          ./scripts/test-resume-format.sh _site
+
+  normalize-front-matter:
+    needs: build
+    runs-on: ubuntu-latest
+    # soft-warning: detect missing front-matter but don't fail the PR automatically
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate (normalize) front-matter — dry-run
+        run: |
+          chmod +x scripts/normalize-front-matter.sh || true
+          ./scripts/normalize-front-matter.sh --dry-run || true
+
+  final-report:
+    needs: [build, privacy-check, discoverability, validate-front-matter, pr-compliance, link-check, lighthouse, a11y-check, image-alt-check, color-contrast-check, responsive-check, visual-sampling, resume-format, normalize-front-matter]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: CI run summary
+        run: |
+          echo "\n--- CI SUMMARY: job results (PASS/FAIL/NEUTRAL) ---\n"
+          echo "build: ${{ needs.build.result }}"
+          echo "privacy-check: ${{ needs.privacy-check.result }}"
+          echo "discoverability: ${{ needs.discoverability.result }}"
+          echo "validate-front-matter: ${{ needs.validate-front-matter.result }}"
+          echo "pr-compliance: ${{ needs.pr-compliance.result }}"
+          echo "link-check: ${{ needs.link-check.result }}"
+          echo "lighthouse: ${{ needs.lighthouse.result }}"
+          echo "a11y-check: ${{ needs.a11y-check.result }}"
+          echo "image-alt-check: ${{ needs.image-alt-check.result }}"
+          echo "color-contrast-check: ${{ needs.color-contrast-check.result }}"
+          echo "responsive-check: ${{ needs.responsive-check.result }}"
+          echo "visual-sampling: ${{ needs.visual-sampling.result }}"
+          echo "resume-format: ${{ needs.resume-format.result }}"
+          echo "normalize-front-matter: ${{ needs.normalize-front-matter.result }}"
+          echo "\nIf any checks failed, please review the first failing job's logs and the remediation hints below:\n"
+          echo " - Build failures: ensure Ruby and Bundler are correct (ruby/setup-ruby), run 'bundle install' locally and try 'bundle exec jekyll build --destination _site' to reproduce."
+          echo " - Discoverability: check '/about.html' and 'assets/resume.pdf' are present in the built site. Use ./scripts/check-discoverability.sh locally."
+          echo " - Front-matter: run ./scripts/validate-front-matter.sh to find bad or missing metadata and fix files under _posts/ or _work_history/."
+          echo " - Accessibility (a11y/contrast/image-alt): inspect the failing logs and run the relevant scripts (scripts/check-image-alts.sh, node scripts/contrast-check.js) locally; run 'npm ci' to prepare Playwright."
+          echo " - Lighthouse: review .lighthouseci/*.json artifacts for insights and performance regressions."
+          echo " - For any failures, add a short troubleshooting note to the PR describing attempts to reproduce locally (commands tried, local outputs)."
+      - name: Upload quick CI report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-summary
+          path: |
+            # capture the built site for debugging
+            _site || true
+            # allow reviewers to download the compact summary
+            .
+
+  pr-comment-summary:
+    needs: [build, privacy-check, discoverability, validate-front-matter, pr-compliance, link-check, lighthouse, a11y-check, image-alt-check, color-contrast-check, responsive-check, visual-sampling, resume-format, normalize-front-matter]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && always()
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Post CI summary to PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const results = {
+              'build': '${{ needs.build.result }}',
+              'privacy-check': '${{ needs.privacy-check.result }}',
+              'discoverability': '${{ needs.discoverability.result }}',
+              'validate-front-matter': '${{ needs.validate-front-matter.result }}',
+              'pr-compliance': '${{ needs.pr-compliance.result }}',
+              'link-check': '${{ needs.link-check.result }}',
+              'lighthouse': '${{ needs.lighthouse.result }}',
+              'a11y-check': '${{ needs.a11y-check.result }}',
+              'image-alt-check': '${{ needs.image-alt-check.result }}',
+              'color-contrast-check': '${{ needs.color-contrast-check.result }}',
+              'responsive-check': '${{ needs.responsive-check.result }}',
+              'visual-sampling': '${{ needs.visual-sampling.result }}',
+              'resume-format': '${{ needs.resume-format.result }}',
+              'normalize-front-matter': '${{ needs.normalize-front-matter.result }}'
+            };
+            
+            const passed = [];
+            const failed = [];
+            const skipped = [];
+            
+            for (const [job, result] of Object.entries(results)) {
+              if (result === 'success') passed.push(job);
+              else if (result === 'failure') failed.push(job);
+              else if (result === 'skipped') skipped.push(job);
+            }
+            
+            let comment = '## 🔍 CI Checks Summary\n\n';
+            
+            if (failed.length === 0) {
+              comment += '✅ **All checks passed!** Ready for review.\n\n';
+            } else {
+              comment += `❌ **${failed.length} check(s) failed** — see details below and remediation hints.\n\n`;
+            }
+            
+            comment += '### Results\n\n';
+            comment += `- ✅ Passed: ${passed.length}\n`;
+            comment += `- ❌ Failed: ${failed.length}\n`;
+            if (skipped.length > 0) comment += `- ⏭️ Skipped: ${skipped.length}\n`;
+            
+            if (failed.length > 0) {
+              comment += '\n### Failed Checks\n\n';
+              failed.forEach(job => {
+                comment += `- ❌ **${job}**\n`;
+              });
+              
+              comment += '\n### 🛠️ Remediation Guide\n\n';
+              comment += '<details><summary>Click to expand troubleshooting steps</summary>\n\n';
+              comment += '#### Build failures\n';
+              comment += '```bash\n';
+              comment += 'bundle install\n';
+              comment += 'bundle exec jekyll build --destination _site\n';
+              comment += '```\n\n';
+              comment += '#### Discoverability\n';
+              comment += '```bash\n';
+              comment += './scripts/check-discoverability.sh _site\n';
+              comment += '```\n\n';
+              comment += '#### Front-matter validation\n';
+              comment += '```bash\n';
+              comment += './scripts/validate-front-matter.sh .\n';
+              comment += '```\n\n';
+              comment += '#### Accessibility checks\n';
+              comment += '```bash\n';
+              comment += '# Image alt attributes\n';
+              comment += './scripts/check-image-alts.sh _site\n\n';
+              comment += '# Color contrast (requires local server)\n';
+              comment += 'python3 -m http.server 4000 -d _site &\n';
+              comment += 'npm ci\n';
+              comment += 'node scripts/contrast-check.js http://127.0.0.1:4000\n';
+              comment += '```\n\n';
+              comment += '#### Link checking\n';
+              comment += '```bash\n';
+              comment += 'bundle exec htmlproofer _site --assume_extension\n';
+              comment += '```\n\n';
+              comment += '📖 For more details, see [specs/001-modernize-website/quickstart.md](../blob/001-modernize-website/specs/001-modernize-website/quickstart.md)\n';
+              comment += '</details>\n\n';
+            }
+            
+            comment += `\n---\n*View [workflow run](${context.payload.repository.html_url}/actions/runs/${context.runId}) for detailed logs*`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
