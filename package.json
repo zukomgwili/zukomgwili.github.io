@@ -1,0 +1,33 @@
+{
+  "name": "zukomgwili.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install",
+    "optimize:images": "bash scripts/optimize-images.sh",
+    "optimize:css": "bash scripts/purge-unused-css.sh",
+    "optimize:assets": "npm run optimize:images && npm run optimize:css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zukomgwili/zukomgwili.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/zukomgwili/zukomgwili.github.io/issues"
+  },
+  "homepage": "https://github.com/zukomgwili/zukomgwili.github.io#readme",
+  "dependencies": {
+    "axe-core": "^4.9.3",
+    "playwright": "^1.57.0",
+    "playwright-core": "^1.57.0"
+  },
+  "devDependencies": {
+    "husky": "^8.0.0"
+  }
+}
