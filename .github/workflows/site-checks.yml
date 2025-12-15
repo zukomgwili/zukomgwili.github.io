@@ -83,6 +83,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
       - name: Download built site
         uses: actions/download-artifact@v4
         with:
@@ -102,16 +107,20 @@ jobs:
         with:
           name: site
           path: _site
+      - name: Start static server
+        run: |
+          python3 -m http.server 4000 -d _site &
+          for i in {1..10}; do curl -sSf http://127.0.0.1:4000/ && break || sleep 1; done
       - name: Run Lighthouse CI (collect report)
         uses: treosh/lighthouse-ci-action@v9
         with:
           urls: |
-            file://_site/index.html
-            file://_site/2021-08-14-bananas.html
+            http://127.0.0.1:4000/
+            http://127.0.0.1:4000/about.html
           uploadArtifacts: true
-          output: json
       - name: Upload Lighthouse artifact
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: lighthouse-report
           path: .lighthouseci/
@@ -133,8 +142,8 @@ jobs:
           for i in {1..10}; do curl -sSf http://127.0.0.1:4000/ && break || sleep 1; done
       - name: Run pa11y accessibility checks
         run: |
-          npx --yes pa11y --chromeLaunchConfig='{"args": ["--no-sandbox", "--disable-setuid-sandbox"]}' http://127.0.0.1:4000/ || exit 1
-          npx --yes pa11y --chromeLaunchConfig='{"args": ["--no-sandbox", "--disable-setuid-sandbox"]}' http://127.0.0.1:4000/about/ || exit 1
+          PUPPETEER_ARGS='--no-sandbox --disable-setuid-sandbox' npx --yes pa11y http://127.0.0.1:4000/ || exit 1
+          PUPPETEER_ARGS='--no-sandbox --disable-setuid-sandbox' npx --yes pa11y http://127.0.0.1:4000/about/ || exit 1
 
   image-alt-check:
     needs: build
@@ -169,10 +178,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-      - name: Install Playwright browsers
+      - name: Install dependencies
         run: |
-          npm ci || true
-          npx playwright install --with-deps || true
+          npm ci
+          npx playwright install --with-deps chromium
       - name: Run color-contrast checks (axe-core via Playwright)
         run: |
           node scripts/contrast-check.js http://127.0.0.1:4000
