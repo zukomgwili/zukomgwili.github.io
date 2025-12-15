@@ -5,28 +5,3 @@ _site
 vendor
 /.idea/
 node_modules
-
-# macOS
-.DS_Store
-
-# Editor / IDE
-.vscode/
-
-# Bundler / Ruby
-.bundle/
-vendor/bundle/
-
-# Environment files
-.env
-.env.*
-
-# Logs and runtime
-*.log
-
-# Temporary and caches
-*.tmp
-*.cache
-
-# Build artifacts and tests
-npm-debug.log*
-coverage/
