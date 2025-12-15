@@ -118,7 +118,6 @@ jobs:
             http://127.0.0.1:4000/
             http://127.0.0.1:4000/about.html
           uploadArtifacts: true
-          artifactName: lighthouse-results
 
   a11y-check:
     needs: build
